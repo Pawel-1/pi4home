@@ -3,39 +3,35 @@ package com.pi4home.services;
 import com.pi4j.io.gpio.*;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.NoSuchElementException;
+
 @Service
 public class BlindsService
 {
     GpioController gpioController = GpioFactory.getInstance();
-    GpioPinDigitalOutput pinBlindLargeWindowLeft = gpioController.provisionDigitalOutputPin(RaspiPin.GPIO_01, "blinds", PinState.LOW);
-    GpioPinDigitalOutput pinBlindLargeWindowRight = gpioController.provisionDigitalOutputPin(RaspiPin.GPIO_02, "blinds", PinState.LOW);
-    GpioPinDigitalOutput pinBlindSmallWindowLeft = gpioController.provisionDigitalOutputPin(RaspiPin.GPIO_03, "blinds", PinState.LOW);
-    GpioPinDigitalOutput pinBlindSmallWindowMiddle = gpioController.provisionDigitalOutputPin(RaspiPin.GPIO_04, "blinds", PinState.LOW);
-    GpioPinDigitalOutput pinBlindSmallWindowRight = gpioController.provisionDigitalOutputPin(RaspiPin.GPIO_05, "blinds", PinState.LOW);
 
-    public GpioPinDigitalOutput getPinBlindLargeWindowLeft()
+    //ToDo: wrap RaspiPin, name and state
+    private List<GpioPinDigitalOutput> gpioPinDigitalOutputs = Arrays.asList(
+            gpioController.provisionDigitalOutputPin(RaspiPin.GPIO_01, "pinBlindLargeWindowLeft", PinState.LOW),
+            gpioController.provisionDigitalOutputPin(RaspiPin.GPIO_02, "pinBlindLargeWindowRight", PinState.LOW),
+            gpioController.provisionDigitalOutputPin(RaspiPin.GPIO_03, "pinBlindSmallWindowLeft", PinState.LOW),
+            gpioController.provisionDigitalOutputPin(RaspiPin.GPIO_04, "pinBlindSmallWindowMiddle", PinState.LOW),
+            gpioController.provisionDigitalOutputPin(RaspiPin.GPIO_05, "pinBlindSmallWindowRight", PinState.LOW));
+
+
+    private GpioPinDigitalOutput getPinByName(String pinName)
     {
-        return pinBlindLargeWindowLeft;
+        return gpioPinDigitalOutputs
+                .stream()
+                .filter(gpioPinDigitalOutput -> gpioPinDigitalOutput.getName().equals(pinName))
+                .findFirst()
+                .orElseThrow(() -> new NoSuchElementException());
     }
 
-    public GpioPinDigitalOutput getPinBlindLargeWindowRight()
+    public void togglePinState(String pinName)
     {
-        return pinBlindLargeWindowRight;
+        getPinByName(pinName).toggle();
     }
-
-    public GpioPinDigitalOutput getPinBlindSmallWindowLeft()
-    {
-        return pinBlindSmallWindowLeft;
-    }
-
-    public GpioPinDigitalOutput getPinBlindSmallWindowMiddle()
-    {
-        return pinBlindSmallWindowMiddle;
-    }
-
-    public GpioPinDigitalOutput getPinBlindSmallWindowRight()
-    {
-        return pinBlindSmallWindowRight;
-    }
-
 }
