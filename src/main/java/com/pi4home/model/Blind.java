@@ -2,7 +2,9 @@ package com.pi4home.model;
 
 import com.pi4home.enums.BlindState;
 import com.pi4j.io.gpio.GpioPinDigitalOutput;
+import org.springframework.stereotype.Component;
 
+@Component
 public class Blind
 {
     GpioPinDigitalOutput goUpPin;
