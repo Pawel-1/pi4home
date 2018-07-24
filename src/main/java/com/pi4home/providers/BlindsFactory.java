@@ -4,7 +4,9 @@ import com.pi4home.enums.BlindState;
 import com.pi4home.model.Blind;
 import com.pi4j.io.gpio.GpioPinDigitalOutput;
 import org.springframework.beans.factory.FactoryBean;
+import org.springframework.stereotype.Component;
 
+@Component
 public class BlindsFactory implements FactoryBean<Blind>
 {
     GpioPinDigitalOutput goUpPin;
