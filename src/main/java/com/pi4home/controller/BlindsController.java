@@ -16,7 +16,14 @@ public class BlindsController
     @RequestMapping("/blinds/{name}")
     public String blinds(@PathVariable String name)
     {
-        blindsService.togglePinState(name);
+        try
+        {
+            blindsService.toggleBlindState(name);
+        }
+        catch (InterruptedException e)
+        {
+            e.printStackTrace();
+        }
         return name + " has been toggled";
     }
 
