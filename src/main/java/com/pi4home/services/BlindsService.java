@@ -14,7 +14,6 @@ public class BlindsService
 {
     //ToDo: add unit tests
     //ToDo: when application starts, all blinds should go up, it is a default state of Blind object
-    private static final long BLIND_MOVEMENT_TIME = 5000;
 
     @Resource(name = "blindLargeWindowLeft")
     private Blind blindLargeWindowLeft;
