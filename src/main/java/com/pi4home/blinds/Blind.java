@@ -5,8 +5,7 @@ import com.pi4j.io.gpio.GpioPinDigitalOutput;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-@Component
-@Scope("prototype")
+
 public class Blind
 {
     private static final long BLIND_MOVEMENT_TIME = 5000;
