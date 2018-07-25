@@ -2,6 +2,7 @@ package com.pi4home.services;
 
 import com.pi4home.blinds.Blind;
 import com.pi4home.enums.BlindState;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -15,19 +16,19 @@ public class BlindsService
     //ToDo: add unit tests
     //ToDo: when application starts, all blinds should go up, it is a default state of Blind object
 
-    @Resource(name = "blindLargeWindowLeft")
+    @Autowired
     private Blind blindLargeWindowLeft;
 
-    @Resource(name = "blindLargeWindowRight")
+    @Autowired
     private Blind blindLargeWindowRight;
 
-    @Resource(name = "blindSmallWindowLeft")
+    @Autowired
     private Blind blindSmallWindowLeft;
 
-    @Resource(name = "blindSmallWindowMiddle")
+    @Autowired
     private Blind blindSmallWindowMiddle;
 
-    @Resource(name = "blindSmallWindowRight")
+    @Autowired
     private Blind blindSmallWindowRight;
 
     //ToDo: create a list of beans
