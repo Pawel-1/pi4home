@@ -1,8 +1,7 @@
 package com.pi4home.services;
 
+import com.pi4home.blinds.Blind;
 import com.pi4home.enums.BlindState;
-import com.pi4home.model.Blind;
-import com.pi4j.io.gpio.GpioPinDigitalOutput;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -43,22 +42,15 @@ public class BlindsService
     public void toggleBlindState(String pinName) throws InterruptedException
     {
         Blind blind = getBlindByName(pinName);
+        BlindState blindState = blind.getBlindState();
 
-        if (blind.getBlindState() == BlindState.UP)
+        if (blindState == BlindState.UP)
         {
-            GpioPinDigitalOutput goDownPin = blind.getGoDownPin();
-            setHighStateOnPin(goDownPin);
-            blind.setBlindState(BlindState.DOWN);
-        }
-        else if (blind.getBlindState() == BlindState.DOWN)
-        {
-            GpioPinDigitalOutput goUpPin = blind.getGoUpPin();
-            setHighStateOnPin(goUpPin);
-            blind.setBlindState(BlindState.UP);
+            blind.blindGoesDown();
         }
         else
         {
-            throw new IllegalStateException("Blind with name " + blind.getName() + " has no BlindState set, cannot perform operation");
+            blind.blindGoesUp();
         }
     }
 
@@ -69,12 +61,5 @@ public class BlindsService
                 .filter(blind -> blind.getName().equals(pinName))
                 .findFirst()
                 .orElseThrow(() -> new NoSuchElementException());
-    }
-
-    private void setHighStateOnPin(GpioPinDigitalOutput digitalPin) throws InterruptedException
-    {
-        digitalPin.high();
-        Thread.sleep(BLIND_MOVEMENT_TIME);
-        digitalPin.low();
     }
 }
