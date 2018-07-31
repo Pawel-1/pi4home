@@ -7,14 +7,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class TestController
 {
+    final GpioController gpio = GpioFactory.getInstance();
+    final GpioPinDigitalOutput pin = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_16, "MyLED", PinState.HIGH);
+
     @RequestMapping("/test")
     public String root() throws InterruptedException
     {
         System.out.println("Root for simple E2E testing");
 
-        final GpioController gpio = GpioFactory.getInstance();
-
-        final GpioPinDigitalOutput pin = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_16, "MyLED", PinState.HIGH);
 
         pin.setShutdownOptions(true, PinState.LOW);
 
