@@ -2,8 +2,6 @@ package com.pi4home.blinds;
 
 import com.pi4home.enums.BlindState;
 import com.pi4j.io.gpio.GpioPinDigitalOutput;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
 
 
 public class Blind

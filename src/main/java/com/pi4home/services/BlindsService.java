@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -32,15 +33,19 @@ public class BlindsService
     private Blind blindSmallWindowRight;
 
     //ToDo: create a list of beans
-    List<Blind> blindList = Arrays.asList(
-            blindLargeWindowLeft,
-            blindLargeWindowRight,
-            blindSmallWindowLeft,
-            blindSmallWindowMiddle,
-            blindSmallWindowRight);
+    List<Blind> blindList = new ArrayList<>();
 
     public void toggleBlindState(String pinName) throws InterruptedException
     {
+        if (blindList.isEmpty())
+        {
+            blindList.add(blindLargeWindowLeft);
+            blindList.add(blindLargeWindowRight);
+            blindList.add(blindSmallWindowLeft);
+            blindList.add(blindSmallWindowMiddle);
+            blindList.add(blindSmallWindowRight);
+        }
+
         Blind blind = getBlindByName(pinName);
         BlindState blindState = blind.getBlindState();
 
