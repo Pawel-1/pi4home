@@ -20,7 +20,7 @@ public class FactoryBeanAppConfig
     {
         Blind blind1 = new Blind();
         blind1.setName("largeWindowLeft");
-        blind1.setGoUpPin(gpioController.provisionDigitalOutputPin(RaspiPin.GPIO_21, "largeWindowLeftUp", PinState.LOW));
+        blind1.setGoUpPin(gpioController.provisionDigitalOutputPin(RaspiPin.GPIO_14, "largeWindowLeftUp", PinState.LOW));
         blind1.setGoDownPin(gpioController.provisionDigitalOutputPin(RaspiPin.GPIO_02, "largeWindowLeftDown", PinState.LOW));
 
         return blind1;
