@@ -22,8 +22,8 @@ public class FactoryBeanAppConfig
         blind1.setGoUpPin(largeWindowLeftUpPin);
         blind1.setGoDownPin(largeWindowLeftDownPin);
 
-        largeWindowLeftUpPin.setShutdownOptions(true, PinState.HIGH);
-        largeWindowLeftDownPin.setShutdownOptions(true, PinState.HIGH);
+        largeWindowLeftUpPin.setShutdownOptions(false, PinState.LOW);
+        largeWindowLeftDownPin.setShutdownOptions(false, PinState.LOW);
 
         return blind1;
     }
@@ -39,8 +39,8 @@ public class FactoryBeanAppConfig
         blind2.setGoUpPin(largeWindowRightUpPin);
         blind2.setGoDownPin(largeWindowRightDownPin);
 
-        largeWindowRightUpPin.setShutdownOptions(true, PinState.HIGH);
-        largeWindowRightDownPin.setShutdownOptions(true, PinState.HIGH);
+        largeWindowRightUpPin.setShutdownOptions(false, PinState.LOW);
+        largeWindowRightDownPin.setShutdownOptions(false, PinState.LOW);
 
         return blind2;
     }
@@ -57,8 +57,8 @@ public class FactoryBeanAppConfig
         blind3.setGoUpPin(smallWindowLeftUpPin);
         blind3.setGoDownPin(smallWindowLeftDownPin);
 
-        smallWindowLeftUpPin.setShutdownOptions(true, PinState.HIGH);
-        smallWindowLeftDownPin.setShutdownOptions(true, PinState.HIGH);
+        smallWindowLeftUpPin.setShutdownOptions(false, PinState.LOW);
+        smallWindowLeftDownPin.setShutdownOptions(false, PinState.LOW);
 
         return blind3;
     }
@@ -75,8 +75,8 @@ public class FactoryBeanAppConfig
         blind4.setGoUpPin(smallWindowMiddleUpPin);
         blind4.setGoDownPin(smallWindowMiddleDownPin);
 
-        smallWindowMiddleUpPin.setShutdownOptions(true, PinState.HIGH);
-        smallWindowMiddleDownPin.setShutdownOptions(true, PinState.HIGH);
+        smallWindowMiddleUpPin.setShutdownOptions(false, PinState.LOW);
+        smallWindowMiddleDownPin.setShutdownOptions(false, PinState.LOW);
 
         return blind4;
     }
@@ -93,8 +93,8 @@ public class FactoryBeanAppConfig
         blind5.setGoUpPin(smallWindowRightUpPin);
         blind5.setGoDownPin(smallWindowRightDownPin);
 
-        smallWindowRightUpPin.setShutdownOptions(true, PinState.HIGH);
-        smallWindowRightDownPin.setShutdownOptions(true, PinState.HIGH);
+        smallWindowRightUpPin.setShutdownOptions(false, PinState.LOW);
+        smallWindowRightDownPin.setShutdownOptions(false, PinState.LOW);
 
         return blind5;
     }
