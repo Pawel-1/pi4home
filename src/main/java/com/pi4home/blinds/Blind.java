@@ -12,6 +12,11 @@ public class Blind
     private BlindState blindState;
     private String name;
 
+    public Blind()
+    {
+        blindState = BlindState.UP;
+    }
+
     public void blindGoesDown() throws InterruptedException
     {
         checkIfBlindStateIsAlreadyAsRequested(BlindState.DOWN);
@@ -19,7 +24,7 @@ public class Blind
         setHighStateOnPin(goDownPin);
         this.setBlindState(BlindState.DOWN);
 
-        System.out.println("Blind " + this.getName() + "goes down" + " BLIND STATE : " + this.getBlindState());
+        System.out.println("Blind " + this.getName() + " goes down" + " BLIND STATE : " + this.getBlindState());
     }
 
 
@@ -30,7 +35,7 @@ public class Blind
         setHighStateOnPin(goUpPin);
         this.setBlindState(BlindState.UP);
 
-        System.out.println("Blind " + this.getName() + "goes up" + " BLIND STATE : " + this.getBlindState());
+        System.out.println("Blind " + this.getName() + " goes up" + " BLIND STATE : " + this.getBlindState());
     }
 
     public void checkIfBlindStateIsAlreadyAsRequested(BlindState blindState)
