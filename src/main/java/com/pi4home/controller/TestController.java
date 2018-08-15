@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class TestController
 {
     final GpioController gpio = GpioFactory.getInstance();
-    final GpioPinDigitalOutput pin = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_01, "MyLED", PinState.HIGH);
+    final GpioPinDigitalOutput pin = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_01, "MyLED", PinState.LOW);
 
     @RequestMapping("/test")
     public String root() throws InterruptedException
@@ -17,6 +17,7 @@ public class TestController
 
         pin.setShutdownOptions(true, PinState.LOW);
 
+        pin.high();
         System.out.println("--> GPIO state should be: ON");
 
         Thread.sleep(5000);
