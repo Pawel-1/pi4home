@@ -6,7 +6,7 @@ import com.pi4j.io.gpio.GpioPinDigitalOutput;
 
 public class Blind
 {
-    private static final long BLIND_MOVEMENT_TIME = 15000;
+    private static final long BLIND_MOVEMENT_TIME = 30000;
     private GpioPinDigitalOutput goUpPin;
     private GpioPinDigitalOutput goDownPin;
     private BlindState blindState;
