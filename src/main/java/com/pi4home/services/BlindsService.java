@@ -13,7 +13,6 @@ import java.util.NoSuchElementException;
 public class BlindsService
 {
     //ToDo: add unit tests
-    //ToDo: when application starts, all blinds should go up, it is a default state of Blind object
 
     @Autowired
     private Blind blindLargeWindowLeft;
@@ -60,5 +59,10 @@ public class BlindsService
                 .filter(blind -> blind.getName().equals(pinName))
                 .findFirst()
                 .orElseThrow(() -> new NoSuchElementException());
+    }
+
+    public List<Blind> getBlindList()
+    {
+        return blindList;
     }
 }
