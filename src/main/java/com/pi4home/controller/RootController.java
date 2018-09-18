@@ -24,8 +24,8 @@ public class RootController
                 .stream()
                 .map(e ->
                 {
-                    return e.getKey() + "  |  " + e.getValue();
+                    return e.getKey() + "  |  " + e.getValue() + ", " + "\n";
                 })
-                .collect(Collectors.joining("\n", "", "\n"));
+                .collect(Collectors.joining(", "));
     }
 }
