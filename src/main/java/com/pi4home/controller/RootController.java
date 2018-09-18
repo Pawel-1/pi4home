@@ -26,6 +26,6 @@ public class RootController
                 {
                     return e.getKey() + "  |  " + e.getValue() + ", " + "\n";
                 })
-                .collect(Collectors.joining(", "));
+                .collect(Collectors.joining("\n"));
     }
 }
