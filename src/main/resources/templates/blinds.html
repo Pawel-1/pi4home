@@ -5,7 +5,11 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
 <body>
-    <p th:text="${@blindLargeWindowLeft.getBlindState()}"/>
-    <p th:text="'Hello, ' + ${name} + '!'"/>
+<tbody>
+<tr th:each="blind: ${blindList}">
+    <td th:text="${blind.name}" />
+    <td th:text="${blind.blindState}" />
+</tr>
+</tbody>
 </body>
 </html>
