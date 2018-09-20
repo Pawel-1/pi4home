@@ -23,7 +23,6 @@ public class BlindsController
         List<Blind> blindList = blindsService.getBlindList();
         model.addAttribute("blindList", blindList);
 
-
         return "blinds";
     }
 
@@ -38,7 +37,7 @@ public class BlindsController
         {
             e.printStackTrace();
         }
-        return name + " has been toggled";
+        return name + " blinds";
     }
 
 }
