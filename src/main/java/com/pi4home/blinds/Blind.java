@@ -92,4 +92,13 @@ public class Blind
     {
         this.name = name;
     }
+
+    @Override
+    public String toString()
+    {
+        return "Blind{" +
+                "blindState=" + blindState +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }
