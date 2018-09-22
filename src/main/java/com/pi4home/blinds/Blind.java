@@ -1,13 +1,17 @@
 package com.pi4home.blinds;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.pi4home.enums.BlindState;
 import com.pi4j.io.gpio.GpioPinDigitalOutput;
 
 
 public class Blind
 {
+    @JsonIgnore
     private static final long BLIND_MOVEMENT_TIME = 30000;
+    @JsonIgnore
     private GpioPinDigitalOutput goUpPin;
+    @JsonIgnore
     private GpioPinDigitalOutput goDownPin;
     private BlindState blindState;
     private String name;
