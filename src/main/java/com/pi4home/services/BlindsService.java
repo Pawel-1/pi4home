@@ -1,6 +1,7 @@
 package com.pi4home.services;
 
 import com.pi4home.blinds.Blind;
+import com.pi4home.enums.BlindState;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -8,12 +9,11 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-import static com.pi4home.blinds.BlindState.covered;
-import static com.pi4home.blinds.BlindState.uncovered;
-
 @Service
 public class BlindsService
 {
+    //ToDo: add unit tests
+
     @Autowired
     private Blind blindLargeWindowLeft;
 
@@ -37,22 +37,22 @@ public class BlindsService
             blindSmallWindowMiddle,
             blindSmallWindowRight);
 
-    public void toggleBlindState(String blindName) throws InterruptedException
+    public void toggleBlindState(String pinName) throws InterruptedException
     {
-        Blind blind = getBlindByName(blindName);
-        int percentageMaskingState = blind.getBlindState().getPercentageMaskingState();
+        Blind blind = getBlindByName(pinName);
+        BlindState blindState = blind.getBlindState();
 
-        if (percentageMaskingState == 100)
+        if (blindState == BlindState.UP)
         {
-            blind.setMasking(uncovered());
+            blind.blindGoesDown();
         }
-        else if (percentageMaskingState == 0)
+        else
         {
-            blind.setMasking(covered());
+            blind.blindGoesUp();
         }
     }
 
-    public Blind getBlindByName(String pinName)
+    private Blind getBlindByName(String pinName)
     {
         return blindList
                 .stream()
@@ -64,12 +64,5 @@ public class BlindsService
     public List<Blind> getBlindList()
     {
         return blindList;
-    }
-
-    public void updateBlindState(Blind blind) throws InterruptedException
-    {
-        String name = blind.getName();
-        Blind blindByName = getBlindByName(name);
-        blindByName.setMasking(blindByName.getBlindState());
     }
 }

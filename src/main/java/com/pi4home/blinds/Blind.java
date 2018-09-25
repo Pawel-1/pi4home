@@ -1,57 +1,59 @@
 package com.pi4home.blinds;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.pi4home.enums.BlindState;
 import com.pi4j.io.gpio.GpioPinDigitalOutput;
 
 
 public class Blind
 {
     @JsonIgnore
-    private static final int BLIND_MOVEMENT_TIME = 31000;
+    private static final long BLIND_MOVEMENT_TIME = 30000;
     @JsonIgnore
     private GpioPinDigitalOutput goUpPin;
     @JsonIgnore
     private GpioPinDigitalOutput goDownPin;
-    private String name;
     private BlindState blindState;
+    private String name;
 
-
-    public void setMasking(BlindState updatedBlindState) throws InterruptedException
+    public Blind()
     {
-        int maskingState = blindState.getPercentageMaskingState();
-        int updatedMaskingState = updatedBlindState.getPercentageMaskingState();
-
-        if (maskingState > updatedMaskingState)
-        {
-            int percentageToMove = maskingState - updatedMaskingState / 100;
-            blindGoesUp(BLIND_MOVEMENT_TIME * percentageToMove);
-        }
-        else
-        {
-            int percentageToMove = updatedMaskingState - maskingState / 100;
-            blindGoesDown(BLIND_MOVEMENT_TIME * percentageToMove);
-        }
-        blindState.setPercentageMaskingState(updatedMaskingState);
+        blindState = BlindState.UP;
     }
 
-    private void blindGoesDown(int millis) throws InterruptedException
+    public void blindGoesDown() throws InterruptedException
     {
-        setHighStateOnPin(goDownPin, millis);
+        checkIfBlindStateIsAlreadyAsRequested(BlindState.DOWN);
+
+        setHighStateOnPin(goDownPin);
+        this.setBlindState(BlindState.DOWN);
+
         System.out.println("Blind " + this.getName() + " goes down" + " BLIND STATE : " + this.getBlindState());
     }
 
 
-    private void blindGoesUp(int millis) throws InterruptedException
+    public void blindGoesUp() throws InterruptedException
     {
-        setHighStateOnPin(goUpPin, millis);
+        checkIfBlindStateIsAlreadyAsRequested(BlindState.UP);
+
+        setHighStateOnPin(goUpPin);
+        this.setBlindState(BlindState.UP);
+
         System.out.println("Blind " + this.getName() + " goes up" + " BLIND STATE : " + this.getBlindState());
     }
 
+    public void checkIfBlindStateIsAlreadyAsRequested(BlindState blindState)
+    {
+        if (this.blindState == blindState)
+        {
+            throw new IllegalStateException("Blind should be already" + blindState.name());
+        }
+    }
 
-    private void setHighStateOnPin(GpioPinDigitalOutput digitalPin, int millis) throws InterruptedException
+    private void setHighStateOnPin(GpioPinDigitalOutput digitalPin) throws InterruptedException
     {
         digitalPin.high();
-        Thread.sleep(millis);
+        Thread.sleep(BLIND_MOVEMENT_TIME);
         digitalPin.low();
     }
 
@@ -93,5 +95,14 @@ public class Blind
     public void setName(String name)
     {
         this.name = name;
+    }
+
+    @Override
+    public String toString()
+    {
+        return "Blind{" +
+                "blindState=" + blindState +
+                ", name='" + name + '\'' +
+                '}';
     }
 }
