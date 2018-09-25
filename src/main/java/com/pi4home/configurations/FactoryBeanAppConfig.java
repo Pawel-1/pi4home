@@ -14,88 +14,88 @@ public class FactoryBeanAppConfig
     @Bean(name = "blindLargeWindowLeft")
     public Blind blindFactoryLargeWindowLeft()
     {
-        Blind blind1 = new Blind();
-        blind1.setName("largeWindowLeft");
+        Blind blind = new Blind();
+        blind.setName("largeWindowLeft");
         GpioPinDigitalOutput largeWindowLeftUpPin = gpioController.provisionDigitalOutputPin(RaspiPin.GPIO_02, "largeWindowLeftUp", PinState.LOW);
         GpioPinDigitalOutput largeWindowLeftDownPin = gpioController.provisionDigitalOutputPin(RaspiPin.GPIO_03, "largeWindowLeftDown", PinState.LOW);
 
-        blind1.setGoUpPin(largeWindowLeftUpPin);
-        blind1.setGoDownPin(largeWindowLeftDownPin);
+        blind.setGoUpPin(largeWindowLeftUpPin);
+        blind.setGoDownPin(largeWindowLeftDownPin);
 
         largeWindowLeftUpPin.setShutdownOptions(false, PinState.LOW);
         largeWindowLeftDownPin.setShutdownOptions(false, PinState.LOW);
 
-        return blind1;
+        return blind;
     }
 
     @Bean(name = "blindLargeWindowRight")
     public Blind blindFactoryLargeWindowRight()
     {
-        Blind blind2 = new Blind();
-        blind2.setName("largeWindowRight");
+        Blind blind = new Blind();
+        blind.setName("largeWindowRight");
         GpioPinDigitalOutput largeWindowRightUpPin = gpioController.provisionDigitalOutputPin(RaspiPin.GPIO_05, "largeWindowRightUp", PinState.LOW);
         GpioPinDigitalOutput largeWindowRightDownPin = gpioController.provisionDigitalOutputPin(RaspiPin.GPIO_04, "largeWindowRightDown", PinState.LOW);
 
-        blind2.setGoUpPin(largeWindowRightUpPin);
-        blind2.setGoDownPin(largeWindowRightDownPin);
+        blind.setGoUpPin(largeWindowRightUpPin);
+        blind.setGoDownPin(largeWindowRightDownPin);
 
         largeWindowRightUpPin.setShutdownOptions(false, PinState.LOW);
         largeWindowRightDownPin.setShutdownOptions(false, PinState.LOW);
 
-        return blind2;
+        return blind;
     }
 
     @Bean(name = "blindSmallWindowLeft")
     public Blind blindFactorySmallWindowLeft()
     {
-        Blind blind3 = new Blind();
+        Blind blind = new Blind();
 
-        blind3.setName("smallWindowLeft");
+        blind.setName("smallWindowLeft");
         GpioPinDigitalOutput smallWindowLeftUpPin = gpioController.provisionDigitalOutputPin(RaspiPin.GPIO_21, "smallWindowLeftUp", PinState.LOW);
         GpioPinDigitalOutput smallWindowLeftDownPin = gpioController.provisionDigitalOutputPin(RaspiPin.GPIO_22, "smallWindowLeftDown", PinState.LOW);
 
-        blind3.setGoUpPin(smallWindowLeftUpPin);
-        blind3.setGoDownPin(smallWindowLeftDownPin);
+        blind.setGoUpPin(smallWindowLeftUpPin);
+        blind.setGoDownPin(smallWindowLeftDownPin);
 
         smallWindowLeftUpPin.setShutdownOptions(false, PinState.LOW);
         smallWindowLeftDownPin.setShutdownOptions(false, PinState.LOW);
 
-        return blind3;
+        return blind;
     }
 
     @Bean(name = "blindSmallWindowMiddle")
     public Blind blindFactorySmallWindowMiddle()
     {
-        Blind blind4 = new Blind();
+        Blind blind = new Blind();
 
-        blind4.setName("smallWindowMiddle");
+        blind.setName("smallWindowMiddle");
         GpioPinDigitalOutput smallWindowMiddleUpPin = gpioController.provisionDigitalOutputPin(RaspiPin.GPIO_28, "smallWindowMiddleUp", PinState.LOW);
         GpioPinDigitalOutput smallWindowMiddleDownPin = gpioController.provisionDigitalOutputPin(RaspiPin.GPIO_29, "smallWindowMiddleDown", PinState.LOW);
 
-        blind4.setGoUpPin(smallWindowMiddleUpPin);
-        blind4.setGoDownPin(smallWindowMiddleDownPin);
+        blind.setGoUpPin(smallWindowMiddleUpPin);
+        blind.setGoDownPin(smallWindowMiddleDownPin);
 
         smallWindowMiddleUpPin.setShutdownOptions(false, PinState.LOW);
         smallWindowMiddleDownPin.setShutdownOptions(false, PinState.LOW);
 
-        return blind4;
+        return blind;
     }
 
     @Bean(name = "blindSmallWindowRight")
     public Blind blindFactorySmallWindowRight()
     {
-        Blind blind5 = new Blind();
+        Blind blind = new Blind();
 
-        blind5.setName("smallWindowRight");
+        blind.setName("smallWindowRight");
         GpioPinDigitalOutput smallWindowRightUpPin = gpioController.provisionDigitalOutputPin(RaspiPin.GPIO_23, "smallWindowRightUp", PinState.LOW);
         GpioPinDigitalOutput smallWindowRightDownPin = gpioController.provisionDigitalOutputPin(RaspiPin.GPIO_24, "smallWindowRightDown", PinState.LOW);
 
-        blind5.setGoUpPin(smallWindowRightUpPin);
-        blind5.setGoDownPin(smallWindowRightDownPin);
+        blind.setGoUpPin(smallWindowRightUpPin);
+        blind.setGoDownPin(smallWindowRightDownPin);
 
         smallWindowRightUpPin.setShutdownOptions(false, PinState.LOW);
         smallWindowRightDownPin.setShutdownOptions(false, PinState.LOW);
 
-        return blind5;
+        return blind;
     }
 }
