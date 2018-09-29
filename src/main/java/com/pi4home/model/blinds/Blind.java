@@ -3,10 +3,7 @@ package com.pi4home.model.blinds;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.pi4j.io.gpio.GpioPinDigitalOutput;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
-import javax.persistence.Transient;
+import javax.persistence.*;
 
 @Entity
 public class Blind
@@ -22,7 +19,7 @@ public class Blind
     private GpioPinDigitalOutput goDownPin;
     @Id
     private String name;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private BlindState blindState;
 
     public Blind()
