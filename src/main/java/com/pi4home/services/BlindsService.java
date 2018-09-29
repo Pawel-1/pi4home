@@ -41,9 +41,6 @@ public class BlindsService
             blindSmallWindowMiddle,
             blindSmallWindowRight);
 
-    {
-        blindRepository.saveAll(blindList);
-    }
 
     public void toggleBlindState(String blindName) throws InterruptedException
     {
