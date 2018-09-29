@@ -35,7 +35,7 @@ public class BlindsController
     }
 
     @RequestMapping(method = RequestMethod.PUT, value = "/blinds/{name}")
-    public void updateBlindState(@RequestBody Blind blind, @PathVariable String name)
+    public void updateBlindState(@RequestBody Blind blind)
     {
         try
         {

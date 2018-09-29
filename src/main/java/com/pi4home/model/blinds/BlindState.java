@@ -12,6 +12,11 @@ public class BlindState
     private int id;
     private int percentageMaskingState;
 
+    public BlindState()
+    {
+
+    }
+
     public BlindState(int percentageMaskingState)
     {
         this.percentageMaskingState = percentageMaskingState;
