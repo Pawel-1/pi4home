@@ -4,9 +4,7 @@ import com.pi4home.model.blinds.Blind;
 import com.pi4home.services.BlindsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,7 +21,7 @@ public class BlindsController
     }
 
     @RequestMapping("/blinds/{name}")
-    public String blinds(@PathVariable String name)
+    public Blind blinds(@PathVariable String name)
     {
         try
         {
@@ -33,7 +31,19 @@ public class BlindsController
         {
             e.printStackTrace();
         }
-        return name + " blinds";
+        return blindsService.getBlindByName(name);
     }
 
+    @RequestMapping(method = RequestMethod.PUT, value = "/blinds/{name}")
+    public void updateBlindState(@RequestBody Blind blind, @PathVariable String name)
+    {
+        try
+        {
+            blindsService.updateBlindState(blind);
+        }
+        catch (InterruptedException e)
+        {
+            e.printStackTrace();
+        }
+    }
 }
