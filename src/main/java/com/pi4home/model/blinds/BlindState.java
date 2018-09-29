@@ -1,4 +1,4 @@
-package com.pi4home.blinds;
+package com.pi4home.model.blinds;
 
 public class BlindState
 {

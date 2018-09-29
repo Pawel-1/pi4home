@@ -1,6 +1,7 @@
 package com.pi4home.services;
 
-import com.pi4home.blinds.Blind;
+import com.pi4home.jpa.BlindRepository;
+import com.pi4home.model.blinds.Blind;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -8,12 +9,15 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-import static com.pi4home.blinds.BlindState.covered;
-import static com.pi4home.blinds.BlindState.uncovered;
+import static com.pi4home.model.blinds.BlindState.covered;
+import static com.pi4home.model.blinds.BlindState.uncovered;
 
 @Service
 public class BlindsService
 {
+    @Autowired
+    private BlindRepository blindRepository;
+
     @Autowired
     private Blind blindLargeWindowLeft;
 
@@ -37,9 +41,17 @@ public class BlindsService
             blindSmallWindowMiddle,
             blindSmallWindowRight);
 
+    public void setUpBlindService()
+    {
+        blindRepository.saveAll(blindList);
+    }
+
     public void toggleBlindState(String blindName) throws InterruptedException
     {
-        Blind blind = getBlindByName(blindName);
+        Blind blind = blindRepository
+                .findById(blindName)
+                .orElseThrow(() -> new NoSuchElementException());
+
         int percentageMaskingState = blind.getBlindState().getPercentageMaskingState();
 
         if (percentageMaskingState == 100)
@@ -71,5 +83,13 @@ public class BlindsService
         String name = blind.getName();
         Blind blindByName = getBlindByName(name);
         blindByName.setMasking(blindByName.getBlindState());
+
+        updateBlindInDB(blindByName);
+    }
+
+    private void updateBlindInDB(Blind blindByName)
+    {
+        blindRepository.findById(blindByName.getName())
+                .ifPresentOrElse(blind -> blindRepository.save(blind), () -> new NoSuchElementException());
     }
 }

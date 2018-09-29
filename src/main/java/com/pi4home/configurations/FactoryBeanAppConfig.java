@@ -1,6 +1,6 @@
 package com.pi4home.configurations;
 
-import com.pi4home.blinds.Blind;
+import com.pi4home.model.blinds.Blind;
 import com.pi4j.io.gpio.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

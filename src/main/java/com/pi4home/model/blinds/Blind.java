@@ -1,9 +1,12 @@
-package com.pi4home.blinds;
+package com.pi4home.model.blinds;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.pi4j.io.gpio.GpioPinDigitalOutput;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
+@Entity
 public class Blind
 {
     @JsonIgnore
@@ -12,6 +15,7 @@ public class Blind
     private GpioPinDigitalOutput goUpPin;
     @JsonIgnore
     private GpioPinDigitalOutput goDownPin;
+    @Id
     private String name;
     private BlindState blindState;
 
@@ -28,11 +32,13 @@ public class Blind
         if (maskingState > updatedMaskingState)
         {
             int percentageToMove = maskingState - updatedMaskingState / 100;
+            System.out.print(this.getName() + " goes up for TIME: " + BLIND_MOVEMENT_TIME * percentageToMove);
             blindGoesUp(BLIND_MOVEMENT_TIME * percentageToMove);
         }
         else
         {
             int percentageToMove = updatedMaskingState - maskingState / 100;
+            System.out.print(this.getName() + " goes down for TIME: " + BLIND_MOVEMENT_TIME * percentageToMove);
             blindGoesDown(BLIND_MOVEMENT_TIME * percentageToMove);
         }
         blindState.setPercentageMaskingState(updatedMaskingState);
