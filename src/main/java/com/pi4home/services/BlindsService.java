@@ -90,6 +90,6 @@ public class BlindsService
     private void updateBlindInDB(Blind blindByName)
     {
         blindRepository.findById(blindByName.getName())
-                .ifPresentOrElse(blind -> blindRepository.save(blind), () -> new NoSuchElementException());
+                .ifPresent(blind -> blindRepository.save(blind));
     }
 }
