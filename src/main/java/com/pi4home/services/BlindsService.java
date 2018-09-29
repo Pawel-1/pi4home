@@ -41,7 +41,6 @@ public class BlindsService
             blindSmallWindowMiddle,
             blindSmallWindowRight);
 
-    public void setUpBlindService()
     {
         blindRepository.saveAll(blindList);
     }
@@ -89,7 +88,6 @@ public class BlindsService
 
     private void updateBlindInDB(Blind blindByName)
     {
-        blindRepository.findById(blindByName.getName())
-                .ifPresent(blind -> blindRepository.save(blind));
+        blindRepository.save(blindByName);
     }
 }
