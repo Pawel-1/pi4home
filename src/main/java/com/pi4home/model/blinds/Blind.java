@@ -5,6 +5,7 @@ import com.pi4j.io.gpio.GpioPinDigitalOutput;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Blind
@@ -17,6 +18,7 @@ public class Blind
     private GpioPinDigitalOutput goDownPin;
     @Id
     private String name;
+    @OneToOne
     private BlindState blindState;
 
     public Blind()
