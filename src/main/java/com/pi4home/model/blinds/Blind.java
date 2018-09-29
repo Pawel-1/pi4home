@@ -6,14 +6,18 @@ import com.pi4j.io.gpio.GpioPinDigitalOutput;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.persistence.Transient;
 
 @Entity
 public class Blind
 {
+    @Transient
     @JsonIgnore
     private static final int BLIND_MOVEMENT_TIME = 31000;
+    @Transient
     @JsonIgnore
     private GpioPinDigitalOutput goUpPin;
+    @Transient
     @JsonIgnore
     private GpioPinDigitalOutput goDownPin;
     @Id
