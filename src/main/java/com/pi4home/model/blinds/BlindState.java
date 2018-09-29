@@ -1,11 +1,15 @@
 package com.pi4home.model.blinds;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
 @Entity
 public class BlindState
 {
-
+    @Id
+    @GeneratedValue
+    private int id;
     private int percentageMaskingState;
 
     public BlindState(int percentageMaskingState)
