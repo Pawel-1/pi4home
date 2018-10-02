@@ -17,6 +17,7 @@ public class BlindsController
     @RequestMapping("/blinds")
     public List<Blind> blinds(Model model)
     {
+        blindsService.initDB();
         return blindsService.getBlindList();
     }
 

@@ -87,4 +87,9 @@ public class BlindsService
     {
         blindRepository.save(blindByName);
     }
+
+    public void initDB()
+    {
+        blindRepository.saveAll(blindList);
+    }
 }
