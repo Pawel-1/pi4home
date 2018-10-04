@@ -34,13 +34,13 @@ public class Blind
 
         if (maskingState > updatedMaskingState)
         {
-            int percentageToMove = maskingState - updatedMaskingState / 100;
+            int percentageToMove = (maskingState - updatedMaskingState) / 100;
             System.out.print(this.getName() + " goes up for TIME: " + BLIND_MOVEMENT_TIME * percentageToMove);
             blindGoesUp(BLIND_MOVEMENT_TIME * percentageToMove);
         }
         else
         {
-            int percentageToMove = updatedMaskingState - maskingState / 100;
+            int percentageToMove = (updatedMaskingState - maskingState) / 100;
             System.out.print(this.getName() + " goes down for TIME: " + BLIND_MOVEMENT_TIME * percentageToMove);
             blindGoesDown(BLIND_MOVEMENT_TIME * percentageToMove);
         }
