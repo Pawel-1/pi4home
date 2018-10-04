@@ -44,11 +44,13 @@ public class BlindsService
 
     public void toggleBlindState(String blindName) throws InterruptedException
     {
-        Blind blind = blindRepository
-                .findById(blindName)
-                .orElseThrow(() -> new NoSuchElementException());
+        Blind blind = getBlindByName(blindName);
 
-        int percentageMaskingState = blind.getBlindState().getPercentageMaskingState();
+        int percentageMaskingState = blindRepository
+                .findById(blind.getName())
+                .orElseThrow(() -> new NoSuchElementException())
+                .getBlindState()
+                .getPercentageMaskingState();
 
         if (percentageMaskingState == 100)
         {
