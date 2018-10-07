@@ -78,9 +78,9 @@
         </dependency>
 
         <dependency>
-            <groupId>org.apache.derby</groupId>
-            <artifactId>derby</artifactId>
-            <scope>runtime</scope>
+            <groupId>org.xerial</groupId>
+            <artifactId>sqlite-jdbc</artifactId>
+            <version>3.16.1</version>
         </dependency>
 
     </dependencies>
