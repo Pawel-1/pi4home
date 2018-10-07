@@ -1,35 +1,31 @@
 package com.pi4home.model.blinds;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.pi4home.jpa.BlindStateRepository;
 import com.pi4j.io.gpio.GpioPinDigitalOutput;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.persistence.*;
+import java.util.NoSuchElementException;
 
-@Entity
 public class Blind
 {
-    @Transient
+    @Autowired
+    private BlindStateRepository blindStateRepository;
+
     @JsonIgnore
     private static final int BLIND_MOVEMENT_TIME = 31000;
-    @Transient
     @JsonIgnore
     private GpioPinDigitalOutput goUpPin;
-    @Transient
     @JsonIgnore
     private GpioPinDigitalOutput goDownPin;
-    @Id
     private String name;
-    @OneToOne(cascade = CascadeType.ALL)
-    private BlindState blindState;
-
-    public Blind()
-    {
-        this.blindState = BlindState.uncovered();
-    }
 
     public void setMasking(BlindState updatedBlindState) throws InterruptedException
     {
-        int maskingState = blindState.getPercentageMaskingState();
+        BlindState actualBlindState = this.getBlindState();
+
+        int maskingState = actualBlindState.getPercentageMaskingState();
+
         int updatedMaskingState = updatedBlindState.getPercentageMaskingState();
 
         if (maskingState > updatedMaskingState)
@@ -44,20 +40,18 @@ public class Blind
             System.out.print(this.getName() + " goes down for TIME: " + BLIND_MOVEMENT_TIME * percentageToMove);
             blindGoesDown(BLIND_MOVEMENT_TIME * percentageToMove);
         }
-        blindState.setPercentageMaskingState(updatedMaskingState);
+        this.setBlindState(updatedBlindState);
     }
 
     private void blindGoesDown(int millis) throws InterruptedException
     {
         setHighStateOnPin(goDownPin, millis);
-        System.out.println("Blind " + this.getName() + " goes down" + " BLIND STATE : " + this.getBlindState());
     }
 
 
     private void blindGoesUp(int millis) throws InterruptedException
     {
         setHighStateOnPin(goUpPin, millis);
-        System.out.println("Blind " + this.getName() + " goes up" + " BLIND STATE : " + this.getBlindState());
     }
 
 
@@ -88,16 +82,6 @@ public class Blind
         this.goDownPin = goDownPin;
     }
 
-    public BlindState getBlindState()
-    {
-        return blindState;
-    }
-
-    public void setBlindState(BlindState blindState)
-    {
-        this.blindState = blindState;
-    }
-
     public String getName()
     {
         return name;
@@ -106,5 +90,17 @@ public class Blind
     public void setName(String name)
     {
         this.name = name;
+    }
+
+    public BlindState getBlindState()
+    {
+        return blindStateRepository
+                .findById(this.getName())
+                .orElseThrow(() -> new NoSuchElementException());
+    }
+
+    public void setBlindState(BlindState blindState)
+    {
+        blindStateRepository.save(blindState);
     }
 }

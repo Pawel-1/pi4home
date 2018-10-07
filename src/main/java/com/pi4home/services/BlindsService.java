@@ -1,7 +1,7 @@
 package com.pi4home.services;
 
-import com.pi4home.jpa.BlindRepository;
 import com.pi4home.model.blinds.Blind;
+import com.pi4home.model.blinds.BlindState;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,9 +15,6 @@ import static com.pi4home.model.blinds.BlindState.uncovered;
 @Service
 public class BlindsService
 {
-    @Autowired
-    private BlindRepository blindRepository;
-
     @Autowired
     private Blind blindLargeWindowLeft;
 
@@ -46,19 +43,15 @@ public class BlindsService
     {
         Blind blind = getBlindByName(blindName);
 
-        int percentageMaskingState = blindRepository
-                .findById(blind.getName())
-                .orElseThrow(() -> new NoSuchElementException())
-                .getBlindState()
-                .getPercentageMaskingState();
+        int percentageMaskingState = blind.getBlindState().getPercentageMaskingState();
 
         if (percentageMaskingState == 100)
         {
-            blind.setMasking(uncovered());
+            blind.setMasking(uncovered(blindName));
         }
         else if (percentageMaskingState == 0)
         {
-            blind.setMasking(covered());
+            blind.setMasking(covered(blindName));
         }
     }
 
@@ -76,22 +69,17 @@ public class BlindsService
         return blindList;
     }
 
-    public void updateBlindState(Blind blind) throws InterruptedException
+    public void updateBlindState(Blind blindRq) throws InterruptedException
     {
-        String name = blind.getName();
-        Blind blindByName = getBlindByName(name);
-        blindByName.setMasking(blindByName.getBlindState());
-
-        updateBlindInDB(blindByName);
+        Blind blindByName = getBlindByName(blindRq.getName());
+        BlindState blindStateRq = blindRq.getBlindState();
+        blindByName.setMasking(blindStateRq);
     }
 
-    private void updateBlindInDB(Blind blindByName)
-    {
-        blindRepository.save(blindByName);
-    }
 
-    public void initDB()
+    public void initDb()
     {
-        blindRepository.saveAll(blindList);
+        blindList
+                .forEach(blind -> blind.setBlindState(uncovered(blind.getName())));
     }
 }

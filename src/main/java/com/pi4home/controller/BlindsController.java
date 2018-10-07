@@ -14,10 +14,16 @@ public class BlindsController
     @Autowired
     private BlindsService blindsService;
 
+    @RequestMapping("/initDB")
+    public String initDb()
+    {
+        blindsService.initDb();
+        return "DB initialized";
+    }
+
     @RequestMapping("/blinds")
     public List<Blind> blinds(Model model)
     {
-        blindsService.initDB();
         return blindsService.getBlindList();
     }
 
