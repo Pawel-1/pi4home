@@ -2,8 +2,10 @@ package com.pi4home.model.blinds;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "BLIND_STATE")
 public class BlindState
 {
     @Id
