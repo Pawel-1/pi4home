@@ -101,7 +101,7 @@ public class Blind
                 .orElseThrow(() -> new NoSuchElementException());
     }
 
-    @JsonSetter
+    @JsonSetter("blindState")
     public void setBlindState(BlindState blindState)
     {
         blindStateRepository.save(blindState);
