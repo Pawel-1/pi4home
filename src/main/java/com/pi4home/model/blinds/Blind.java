@@ -21,7 +21,6 @@ public class Blind
     @JsonIgnore
     private GpioPinDigitalOutput goDownPin;
     private String name;
-    private int percentageMaskingState;
 
     public void setMasking(BlindState updatedBlindState) throws InterruptedException
     {
