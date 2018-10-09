@@ -21,6 +21,7 @@ public class Blind
     @JsonIgnore
     private GpioPinDigitalOutput goDownPin;
     private String name;
+    private BlindState blindState;
 
     public void setMasking(BlindState updatedBlindState) throws InterruptedException
     {
@@ -104,6 +105,7 @@ public class Blind
     @JsonSetter("blindState")
     public void setBlindState(BlindState blindState)
     {
+        this.blindState = blindState;
         blindStateRepository.save(blindState);
     }
 }
