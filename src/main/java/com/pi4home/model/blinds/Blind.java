@@ -9,9 +9,9 @@ import java.util.NoSuchElementException;
 
 public class Blind
 {
-//    @JsonIgnore
-//    @Autowired
-//    private BlindStateRepository blindStateRepository;
+    @JsonIgnore
+    @Autowired
+    private BlindStateRepository blindStateRepository;
 
     @JsonIgnore
     private static final int BLIND_MOVEMENT_TIME = 31000;
@@ -95,14 +95,13 @@ public class Blind
 
     public BlindState getBlindState()
     {
-       return new BlindState();
-//        return blindStateRepository
-//                .findById(this.getName())
-//                .orElseThrow(() -> new NoSuchElementException());
+        return blindStateRepository
+                .findById(this.getName())
+                .orElseThrow(() -> new NoSuchElementException());
     }
 
     public void setBlindState(BlindState blindState)
     {
-//        blindStateRepository.save(blindState);
+        blindStateRepository.save(blindState);
     }
 }
