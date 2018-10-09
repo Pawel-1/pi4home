@@ -105,7 +105,6 @@ public class Blind
         return blindState;
     }
 
-    @JsonSetter("blindState")
     public void setBlindState(BlindState blindState)
     {
         this.blindState = blindState;
