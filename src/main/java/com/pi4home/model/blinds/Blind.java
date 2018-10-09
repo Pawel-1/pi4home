@@ -1,6 +1,7 @@
 package com.pi4home.model.blinds;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonSetter;
 import com.pi4home.jpa.BlindStateRepository;
 import com.pi4j.io.gpio.GpioPinDigitalOutput;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,7 @@ public class Blind
     @JsonIgnore
     private GpioPinDigitalOutput goDownPin;
     private String name;
+    private int percentageMaskingState;
 
     public void setMasking(BlindState updatedBlindState) throws InterruptedException
     {
@@ -100,6 +102,7 @@ public class Blind
                 .orElseThrow(() -> new NoSuchElementException());
     }
 
+    @JsonSetter
     public void setBlindState(BlindState blindState)
     {
         blindStateRepository.save(blindState);
