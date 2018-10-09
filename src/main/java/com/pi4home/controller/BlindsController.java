@@ -22,7 +22,7 @@ public class BlindsController
     }
 
     @RequestMapping("/blinds")
-    public List<Blind> blinds(Model model)
+    public List<Blind> blinds()
     {
         return blindsService.getBlindList();
     }
