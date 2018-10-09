@@ -97,9 +97,12 @@ public class Blind
 
     public BlindState getBlindState()
     {
-        return blindStateRepository
+        BlindState blindStateDb = blindStateRepository
                 .findById(this.getName())
                 .orElseThrow(() -> new NoSuchElementException());
+
+        blindState = blindStateDb;
+        return blindState;
     }
 
     @JsonSetter("blindState")
