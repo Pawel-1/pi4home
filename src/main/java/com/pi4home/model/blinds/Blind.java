@@ -9,6 +9,7 @@ import java.util.NoSuchElementException;
 
 public class Blind
 {
+    @JsonIgnore
     @Autowired
     private BlindStateRepository blindStateRepository;
 
