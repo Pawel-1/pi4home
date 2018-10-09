@@ -1,12 +1,9 @@
 package com.pi4home.model.blinds;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonSetter;
 import com.pi4home.jpa.BlindStateRepository;
 import com.pi4j.io.gpio.GpioPinDigitalOutput;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.NoSuchElementException;
 
 public class Blind
 {
@@ -97,17 +94,11 @@ public class Blind
 
     public BlindState getBlindState()
     {
-        BlindState blindStateDb = blindStateRepository
-                .findById(this.getName())
-                .orElseThrow(() -> new NoSuchElementException());
-
-        blindState = blindStateDb;
         return blindState;
     }
 
     public void setBlindState(BlindState blindState)
     {
         this.blindState = blindState;
-        blindStateRepository.save(blindState);
     }
 }

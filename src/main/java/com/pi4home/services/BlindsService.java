@@ -1,5 +1,6 @@
 package com.pi4home.services;
 
+import com.pi4home.jpa.BlindStateRepository;
 import com.pi4home.model.blinds.Blind;
 import com.pi4home.model.blinds.BlindState;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,8 @@ import static com.pi4home.model.blinds.BlindState.uncovered;
 @Service
 public class BlindsService
 {
+    @Autowired
+    private BlindStateRepository blindStateRepository;
     @Autowired
     private Blind blindLargeWindowLeft;
 
@@ -82,4 +85,16 @@ public class BlindsService
         blindList
                 .forEach(blind -> blind.setBlindState(uncovered(blind.getName())));
     }
+
+//    private BlindState getBlindState()
+//    {
+//        return blindStateRepository
+//                .findById(this.getName())
+//                .orElseThrow(() -> new NoSuchElementException());
+//    }
+//
+//    private void setBlindState(BlindState blindState)
+//    {
+//        blindStateRepository.save(blindState);
+//    }
 }
