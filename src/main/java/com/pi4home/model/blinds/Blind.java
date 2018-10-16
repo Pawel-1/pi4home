@@ -29,37 +29,38 @@ public class Blind
 
         if (actualMaskingState > updatedMaskingState)
         {
-            int percentageToMove = (actualMaskingState - updatedMaskingState) / 100;
+            double percentageToMove = (actualMaskingState - updatedMaskingState) / 100;
             System.out.println("percentage to move is : " + percentageToMove);
             System.out.println(this.getName() + " goes up for TIME: " + BLIND_MOVEMENT_TIME * percentageToMove);
             blindGoesUp(BLIND_MOVEMENT_TIME * percentageToMove);
         }
         else
         {
-            int percentageToMove = (updatedMaskingState - actualMaskingState) / 100;
+            double percentageToMove = (updatedMaskingState - actualMaskingState) / 100;
             System.out.println("percentage to move is : " + percentageToMove);
             System.out.println(this.getName() + " goes down for TIME: " + BLIND_MOVEMENT_TIME * percentageToMove);
+
             blindGoesDown(BLIND_MOVEMENT_TIME * percentageToMove);
         }
         this.setBlindState(updatedBlindState);
     }
 
-    private void blindGoesDown(int millis) throws InterruptedException
+    private void blindGoesDown(double millis) throws InterruptedException
     {
         setHighStateOnPin(goDownPin, millis);
     }
 
 
-    private void blindGoesUp(int millis) throws InterruptedException
+    private void blindGoesUp(double millis) throws InterruptedException
     {
         setHighStateOnPin(goUpPin, millis);
     }
 
 
-    private void setHighStateOnPin(GpioPinDigitalOutput digitalPin, int millis) throws InterruptedException
+    private void setHighStateOnPin(GpioPinDigitalOutput digitalPin, double millis) throws InterruptedException
     {
         digitalPin.high();
-        Thread.sleep(millis);
+        Thread.sleep((int)millis);
         digitalPin.low();
     }
 
