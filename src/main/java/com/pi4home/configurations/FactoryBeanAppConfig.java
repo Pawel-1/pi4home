@@ -8,8 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import java.util.NoSuchElementException;
-
 @Configuration
 public class FactoryBeanAppConfig
 {
@@ -116,6 +114,6 @@ public class FactoryBeanAppConfig
     {
         return blindStateRepository
                 .findById(blind.getName())
-                .orElseThrow(() -> new NoSuchElementException());
+                .orElse(BlindState.uncovered(blind.getName()));
     }
 }
