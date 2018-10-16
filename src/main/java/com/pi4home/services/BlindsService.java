@@ -46,7 +46,7 @@ public class BlindsService
     {
         Blind blind = getBlindByName(blindName);
 
-        int percentageMaskingState = blind.getBlindState().getPercentageMaskingState();
+        double percentageMaskingState = blind.getBlindState().getPercentageMaskingState();
 
         if (percentageMaskingState == 100)
         {
