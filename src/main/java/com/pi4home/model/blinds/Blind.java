@@ -16,7 +16,6 @@ public class Blind
 
     public Blind()
     {
-        this.blindState = BlindState.uncovered(this.name);
     }
 
     public void setMasking(BlindState updatedBlindState) throws InterruptedException
