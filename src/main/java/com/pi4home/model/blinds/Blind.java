@@ -22,9 +22,9 @@ public class Blind
     public void setMasking(BlindState updatedBlindState) throws InterruptedException
     {
         BlindState actualBlindState = this.getBlindState();
-        int actualMaskingState = actualBlindState.getPercentageMaskingState();
+        double actualMaskingState = actualBlindState.getPercentageMaskingState();
         System.out.println("actual masking state is : " + actualMaskingState);
-        int updatedMaskingState = updatedBlindState.getPercentageMaskingState();
+        double updatedMaskingState = updatedBlindState.getPercentageMaskingState();
         System.out.println("updated masking state is : " + updatedMaskingState);
 
         if (actualMaskingState > updatedMaskingState)

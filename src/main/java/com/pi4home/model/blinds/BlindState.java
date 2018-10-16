@@ -10,7 +10,7 @@ public class BlindState
 {
     @Id
     private String blindName;
-    private int percentageMaskingState;
+    private double percentageMaskingState;
 
     public BlindState()
     {
@@ -33,7 +33,7 @@ public class BlindState
         return new BlindState(blindName, 0);
     }
 
-    public int getPercentageMaskingState()
+    public double getPercentageMaskingState()
     {
         return percentageMaskingState;
     }
