@@ -1,16 +1,10 @@
 package com.pi4home.model.blinds;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.pi4home.jpa.BlindStateRepository;
 import com.pi4j.io.gpio.GpioPinDigitalOutput;
-import org.springframework.beans.factory.annotation.Autowired;
 
 public class Blind
 {
-    @JsonIgnore
-    @Autowired
-    private BlindStateRepository blindStateRepository;
-
     @JsonIgnore
     private static final int BLIND_MOVEMENT_TIME = 31000;
     @JsonIgnore
@@ -28,20 +22,18 @@ public class Blind
     public void setMasking(BlindState updatedBlindState) throws InterruptedException
     {
         BlindState actualBlindState = this.getBlindState();
-
-        int maskingState = actualBlindState.getPercentageMaskingState();
-
+        int actualMaskingState = actualBlindState.getPercentageMaskingState();
         int updatedMaskingState = updatedBlindState.getPercentageMaskingState();
 
-        if (maskingState > updatedMaskingState)
+        if (actualMaskingState > updatedMaskingState)
         {
-            int percentageToMove = (maskingState - updatedMaskingState) / 100;
+            int percentageToMove = (actualMaskingState - updatedMaskingState) / 100;
             System.out.print(this.getName() + " goes up for TIME: " + BLIND_MOVEMENT_TIME * percentageToMove);
             blindGoesUp(BLIND_MOVEMENT_TIME * percentageToMove);
         }
         else
         {
-            int percentageToMove = (updatedMaskingState - maskingState) / 100;
+            int percentageToMove = (updatedMaskingState - actualMaskingState) / 100;
             System.out.print(this.getName() + " goes down for TIME: " + BLIND_MOVEMENT_TIME * percentageToMove);
             blindGoesDown(BLIND_MOVEMENT_TIME * percentageToMove);
         }
