@@ -23,7 +23,9 @@ public class Blind
     {
         BlindState actualBlindState = this.getBlindState();
         int actualMaskingState = actualBlindState.getPercentageMaskingState();
+        System.out.println("actual masking state is : " + actualMaskingState);
         int updatedMaskingState = updatedBlindState.getPercentageMaskingState();
+        System.out.println("updated masking state is : " + updatedMaskingState);
 
         if (actualMaskingState > updatedMaskingState)
         {
