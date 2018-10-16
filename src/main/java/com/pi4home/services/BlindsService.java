@@ -77,6 +77,7 @@ public class BlindsService
         Blind blindByName = getBlindByName(blindRq.getName());
         BlindState blindStateRq = blindRq.getBlindState();
         blindByName.setMasking(blindStateRq);
+        blindStateRepository.save(blindStateRq);
     }
 
 
