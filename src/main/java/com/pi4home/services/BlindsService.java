@@ -83,23 +83,8 @@ public class BlindsService
 
     public void initDb()
     {
-//        blindList
-//                .forEach(blind -> blind.setBlindState(uncovered(blind.getName())));
-
         blindList
                 .forEach(blind -> blindStateRepository.save(uncovered(blind.getName())));
 
     }
-
-//    private BlindState getBlindState()
-//    {
-//        return blindStateRepository
-//                .findById(this.getName())
-//                .orElseThrow(() -> new NoSuchElementException());
-//    }
-//
-//    private void setBlindState(BlindState blindState)
-//    {
-//        blindStateRepository.save(blindState);
-//    }
 }
