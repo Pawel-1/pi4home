@@ -27,7 +27,7 @@ public class BlindsController
     }
 
     @RequestMapping("/blinds/{name}")
-    public Blind blinds(@PathVariable String name)
+    public List<Blind> blinds(@PathVariable String name)
     {
         try
         {
@@ -37,7 +37,7 @@ public class BlindsController
         {
             e.printStackTrace();
         }
-        return blindsService.getBlindByName(name);
+        return blindsService.getBlindList();
     }
 
     @RequestMapping(method = RequestMethod.PUT, value = "/blinds/{name}")
