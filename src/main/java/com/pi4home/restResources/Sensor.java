@@ -3,13 +3,18 @@ package com.pi4home.restResources;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import javax.persistence.*;
 import java.util.List;
-
+@Entity
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Sensor
 {
+    @Id
     @JsonProperty("TaskName")
     private String name;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "sensor_name")
     @JsonProperty("TaskValues")
     private List<TaskValue> taskValues;
 
