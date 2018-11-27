@@ -8,11 +8,10 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Sensor
 {
-    @JsonProperty("TaskValues")
-    private List<TaskValue> taskValues;
-
     @JsonProperty("TaskName")
     private String name;
+    @JsonProperty("TaskValues")
+    private List<TaskValue> taskValues;
 
     public Sensor()
     {
