@@ -10,10 +10,13 @@ import java.util.List;
 public class Sensor
 {
     @Id
+    @GeneratedValue
+    private int id;
+
     @JsonProperty("TaskName")
     private String name;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "sensor_name")
     @JsonProperty("TaskValues")
     private List<TaskValue> taskValues;
