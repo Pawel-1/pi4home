@@ -13,7 +13,7 @@ public class Sensor
     @JsonProperty("TaskName")
     private String name;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "sensor_name")
     @JsonProperty("TaskValues")
     private List<TaskValue> taskValues;
