@@ -28,8 +28,8 @@ public class AirSensorController
 
         sensors.getSensors()
                 .stream()
-                .map(Sensor::getTaskValues)
-                .forEach(sensorRepository::saveAll);
+                .flatMap(sensor -> sensor.getTaskValues().stream())
+                .forEach(sensorRepository::save);
 
         return sensors;
     }
