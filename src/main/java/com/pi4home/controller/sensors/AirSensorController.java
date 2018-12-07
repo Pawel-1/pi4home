@@ -1,6 +1,7 @@
 package com.pi4home.controller.sensors;
 
 import com.pi4home.jpa.SensorRepository;
+import com.pi4home.restResources.Sensor;
 import com.pi4home.restResources.Sensors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -26,7 +27,9 @@ public class AirSensorController
         Sensors sensors = restTemplate.getForObject(url, Sensors.class);
 
         sensors.getSensors()
-                .forEach(sensorRepository::save);
+                .stream()
+                .map(Sensor::getTaskValues)
+                .forEach(sensorRepository::saveAll);
 
         return sensors;
     }
