@@ -3,10 +3,10 @@ package com.pi4home.restResources;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @Entity
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -20,6 +20,15 @@ public class TaskValue
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
     private int id;
+
+    @Transient
+    private Date date = new Date();
+    @Transient
+    String strDateFormat = "hh:mm:ss a";
+    @Transient
+    DateFormat dateFormat = new SimpleDateFormat(strDateFormat);
+
+    String formattedDate= dateFormat. format(date);
 
     public TaskValue()
     {
