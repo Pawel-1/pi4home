@@ -3,7 +3,10 @@ package com.pi4home.restResources;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -21,14 +24,7 @@ public class TaskValue
     @Id
     private int id;
 
-    @Transient
-    private Date date = new Date();
-    @Transient
-    String strDateFormat = "hh:mm:ss a";
-    @Transient
-    DateFormat dateFormat = new SimpleDateFormat(strDateFormat);
-
-    String formattedDate= dateFormat. format(date);
+    private String time = getCurrentDateTime();
 
     public TaskValue()
     {
@@ -53,6 +49,15 @@ public class TaskValue
     public void setValue(double value)
     {
         this.value = value;
+    }
+
+    private String getCurrentDateTime()
+    {
+        Date date = new Date();
+        String strDateFormat = "hh:mm:ss a";
+        DateFormat dateFormat = new SimpleDateFormat(strDateFormat);
+
+        return dateFormat.format(date);
     }
 
     @Override
