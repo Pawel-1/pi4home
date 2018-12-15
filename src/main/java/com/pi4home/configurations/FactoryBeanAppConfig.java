@@ -53,15 +53,15 @@ public class FactoryBeanAppConfig
         return blind;
     }
 
-    @Bean(name = "blindSmallWindowLeft")
+    @Bean(name = "blindSmallWindowRight")
     public Blind blindFactorySmallWindowLeft()
     {
         Blind blind = new Blind();
-        blind.setName("smallWindowLeft");
+        blind.setName("smallWindowRight");
         blind.setBlindState(getBlindStateFromDB(blind));
 
-        GpioPinDigitalOutput smallWindowLeftUpPin = gpioController.provisionDigitalOutputPin(RaspiPin.GPIO_21, "smallWindowLeftUp", PinState.LOW);
-        GpioPinDigitalOutput smallWindowLeftDownPin = gpioController.provisionDigitalOutputPin(RaspiPin.GPIO_22, "smallWindowLeftDown", PinState.LOW);
+        GpioPinDigitalOutput smallWindowLeftUpPin = gpioController.provisionDigitalOutputPin(RaspiPin.GPIO_22, "smallWindowLeftUp", PinState.LOW);
+        GpioPinDigitalOutput smallWindowLeftDownPin = gpioController.provisionDigitalOutputPin(RaspiPin.GPIO_21, "smallWindowLeftDown", PinState.LOW);
 
         blind.setGoUpPin(smallWindowLeftUpPin);
         blind.setGoDownPin(smallWindowLeftDownPin);
@@ -72,11 +72,11 @@ public class FactoryBeanAppConfig
         return blind;
     }
 
-    @Bean(name = "blindSmallWindowMiddle")
+    @Bean(name = "blindSmallWindowLeft")
     public Blind blindFactorySmallWindowMiddle()
     {
         Blind blind = new Blind();
-        blind.setName("smallWindowMiddle");
+        blind.setName("smallWindowLeft");
         blind.setBlindState(getBlindStateFromDB(blind));
 
         GpioPinDigitalOutput smallWindowMiddleUpPin = gpioController.provisionDigitalOutputPin(RaspiPin.GPIO_28, "smallWindowMiddleUp", PinState.LOW);
@@ -91,11 +91,11 @@ public class FactoryBeanAppConfig
         return blind;
     }
 
-    @Bean(name = "blindSmallWindowRight")
+    @Bean(name = "blindSmallWindowMiddle")
     public Blind blindFactorySmallWindowRight()
     {
         Blind blind = new Blind();
-        blind.setName("smallWindowRight");
+        blind.setName("smallWindowMiddle");
         blind.setBlindState(getBlindStateFromDB(blind));
 
         GpioPinDigitalOutput smallWindowRightUpPin = gpioController.provisionDigitalOutputPin(RaspiPin.GPIO_23, "smallWindowRightUp", PinState.LOW);
