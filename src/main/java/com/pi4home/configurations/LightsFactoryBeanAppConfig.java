@@ -17,7 +17,7 @@ public class LightsFactoryBeanAppConfig
         light.setName("entrance");
         light.setTurnedOn(false);
 
-        GpioPinDigitalOutput lightOnPin = gpioController.provisionDigitalOutputPin(RaspiPin.GPIO_14, "entranceLightOnPin", PinState.LOW);
+        GpioPinDigitalOutput lightOnPin = gpioController.provisionDigitalOutputPin(RaspiPin.GPIO_00, "entranceLightOnPin", PinState.LOW);
 
         light.setLightOnPin(lightOnPin);
 
