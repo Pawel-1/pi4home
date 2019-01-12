@@ -10,7 +10,7 @@ public class LightsService
     @Autowired
     Light entranceLight;
 
-    public void switchLight()
+    public Light switchLight()
     {
         if (entranceLight.isTurnedOn())
         {
@@ -21,5 +21,6 @@ public class LightsService
         {
             entranceLight.turnOnTheLight();
         }
+        return entranceLight;
     }
 }
