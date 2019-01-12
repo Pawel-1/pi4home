@@ -12,14 +12,16 @@ public class Light
 
     public void turnOnTheLight()
     {
-        lightOnPin.toggle();
+        lightOnPin.high();
         isTurnedOn = true;
+        System.out.println("light ON");
     }
 
     public void turnOffTheLights()
     {
         lightOnPin.low();
         isTurnedOn = false;
+        System.out.println("light OFF");
     }
 
     public void setName(String name)
