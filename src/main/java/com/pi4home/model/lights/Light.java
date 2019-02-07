@@ -43,4 +43,9 @@ public class Light
     {
         return isTurnedOn;
     }
+
+    public String getName()
+    {
+        return name;
+    }
 }
