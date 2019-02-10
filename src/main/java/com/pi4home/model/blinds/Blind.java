@@ -23,7 +23,7 @@ public class Blind
     private GpioPinDigitalOutput goDownPin;
     @Id
     private String name;
-    private double percentageMaskingState;
+    private Double percentageMaskingState;
 
     public Blind()
     {
