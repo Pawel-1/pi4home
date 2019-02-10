@@ -101,7 +101,7 @@ public class Blind
         this.name = name;
     }
 
-    public double getPercentageMaskingState()
+    public Double getPercentageMaskingState()
     {
         return percentageMaskingState;
     }
