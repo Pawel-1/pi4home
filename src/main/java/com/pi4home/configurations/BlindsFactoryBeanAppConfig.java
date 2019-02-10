@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @Configuration
 public class BlindsFactoryBeanAppConfig
@@ -21,7 +22,7 @@ public class BlindsFactoryBeanAppConfig
     {
         Blind blind = new Blind();
         blind.setName("largeWindowLeft");
-        blind.setPercentageMaskingState(getBlindStateFromDB(blind).getPercentageMaskingState());
+        blind.setPercentageMaskingState(getBlindStateFromDB(blind));
 
         GpioPinDigitalOutput largeWindowLeftUpPin = gpioController.provisionDigitalOutputPin(RaspiPin.GPIO_02, "largeWindowLeftUp", PinState.LOW);
         GpioPinDigitalOutput largeWindowLeftDownPin = gpioController.provisionDigitalOutputPin(RaspiPin.GPIO_03, "largeWindowLeftDown", PinState.LOW);
@@ -40,7 +41,7 @@ public class BlindsFactoryBeanAppConfig
     {
         Blind blind = new Blind();
         blind.setName("largeWindowRight");
-        blind.setPercentageMaskingState(getBlindStateFromDB(blind).getPercentageMaskingState());
+        blind.setPercentageMaskingState(getBlindStateFromDB(blind));
 
         GpioPinDigitalOutput largeWindowRightUpPin = gpioController.provisionDigitalOutputPin(RaspiPin.GPIO_05, "largeWindowRightUp", PinState.LOW);
         GpioPinDigitalOutput largeWindowRightDownPin = gpioController.provisionDigitalOutputPin(RaspiPin.GPIO_04, "largeWindowRightDown", PinState.LOW);
@@ -59,7 +60,7 @@ public class BlindsFactoryBeanAppConfig
     {
         Blind blind = new Blind();
         blind.setName("smallWindowRight");
-        blind.setPercentageMaskingState(getBlindStateFromDB(blind).getPercentageMaskingState());
+        blind.setPercentageMaskingState(getBlindStateFromDB(blind));
 
         GpioPinDigitalOutput smallWindowLeftUpPin = gpioController.provisionDigitalOutputPin(RaspiPin.GPIO_21, "smallWindowLeftUp", PinState.LOW);
         GpioPinDigitalOutput smallWindowLeftDownPin = gpioController.provisionDigitalOutputPin(RaspiPin.GPIO_22, "smallWindowLeftDown", PinState.LOW);
@@ -78,7 +79,7 @@ public class BlindsFactoryBeanAppConfig
     {
         Blind blind = new Blind();
         blind.setName("smallWindowLeft");
-        blind.setPercentageMaskingState(getBlindStateFromDB(blind).getPercentageMaskingState());
+        blind.setPercentageMaskingState(getBlindStateFromDB(blind));
 
         GpioPinDigitalOutput smallWindowMiddleUpPin = gpioController.provisionDigitalOutputPin(RaspiPin.GPIO_28, "smallWindowMiddleUp", PinState.LOW);
         GpioPinDigitalOutput smallWindowMiddleDownPin = gpioController.provisionDigitalOutputPin(RaspiPin.GPIO_29, "smallWindowMiddleDown", PinState.LOW);
@@ -97,7 +98,7 @@ public class BlindsFactoryBeanAppConfig
     {
         Blind blind = new Blind();
         blind.setName("smallWindowMiddle");
-        blind.setPercentageMaskingState(getBlindStateFromDB(blind).getPercentageMaskingState());
+        blind.setPercentageMaskingState(getBlindStateFromDB(blind));
 
         GpioPinDigitalOutput smallWindowRightUpPin = gpioController.provisionDigitalOutputPin(RaspiPin.GPIO_24, "smallWindowRightUp", PinState.LOW);
         GpioPinDigitalOutput smallWindowRightDownPin = gpioController.provisionDigitalOutputPin(RaspiPin.GPIO_23, "smallWindowRightDown", PinState.LOW);
@@ -111,10 +112,15 @@ public class BlindsFactoryBeanAppConfig
         return blind;
     }
 
-    private Blind getBlindStateFromDB(Blind blind)
+    private double getBlindStateFromDB(Blind blind)
     {
-        return blindStateRepository
-                .findById(blind.getName())
-                .orElseThrow(() -> new NoSuchElementException());
+        Optional<Blind> blindFromDb = blindStateRepository
+                .findById(blind.getName());
+
+        if (blindFromDb.isPresent())
+        {
+            return blindFromDb.get().getPercentageMaskingState();
+        }
+        return 0;
     }
 }
