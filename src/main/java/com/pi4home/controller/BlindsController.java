@@ -55,7 +55,7 @@ public class BlindsController
 
 
     @RequestMapping("/blinds/{name}/{percentageMaskingState}")
-    public List<Blind> updateBlindStateByValue(@PathVariable String name, Double percentageMaskingState)
+    public List<Blind> updateBlindStateByValue(@PathVariable String name, @PathVariable Double percentageMaskingState)
     {
         try
         {
