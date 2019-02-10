@@ -76,6 +76,13 @@ public class BlindsService
         blindStateRepository.save(blindByName);
     }
 
+    public void updateBlindStateByValue(String blindName, double blindState) throws InterruptedException
+    {
+        Blind blindByName = getBlindByName(blindName);
+        blindByName.setMasking(blindState);
+        blindStateRepository.save(blindByName);
+    }
+
 
     public void initDb()
     {

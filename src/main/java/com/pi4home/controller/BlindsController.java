@@ -52,4 +52,20 @@ public class BlindsController
             e.printStackTrace();
         }
     }
+
+
+    @RequestMapping("/blinds/{name}/{percentageMaskingState}")
+    public List<Blind> updateBlindStateByValue(@PathVariable String name, double percentageMaskingState)
+    {
+        try
+        {
+            blindsService.updateBlindStateByValue(name, percentageMaskingState);
+        }
+        catch (InterruptedException e)
+        {
+            e.printStackTrace();
+        }
+        return blindsService.getBlindList();
+    }
+
 }
