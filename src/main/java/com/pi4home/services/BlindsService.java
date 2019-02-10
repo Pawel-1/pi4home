@@ -2,16 +2,12 @@ package com.pi4home.services;
 
 import com.pi4home.jpa.BlindStateRepository;
 import com.pi4home.model.blinds.Blind;
-import com.pi4home.model.blinds.BlindState;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.NoSuchElementException;
-
-import static com.pi4home.model.blinds.BlindState.covered;
-import static com.pi4home.model.blinds.BlindState.uncovered;
 
 @Service
 public class BlindsService
@@ -46,15 +42,15 @@ public class BlindsService
     {
         Blind blind = getBlindByName(blindName);
 
-        double percentageMaskingState = blind.getBlindState().getPercentageMaskingState();
+        double percentageMaskingState = blind.getPercentageMaskingState();
 
         if (percentageMaskingState == 100)
         {
-            blind.setMasking(uncovered(blindName));
+            blind.setMasking(0);
         }
         else if (percentageMaskingState == 0)
         {
-            blind.setMasking(covered(blindName));
+            blind.setMasking(100);
         }
     }
 
@@ -75,16 +71,16 @@ public class BlindsService
     public void updateBlindState(Blind blindRq) throws InterruptedException
     {
         Blind blindByName = getBlindByName(blindRq.getName());
-        BlindState blindStateRq = blindRq.getBlindState();
+        double blindStateRq = blindRq.getPercentageMaskingState();
         blindByName.setMasking(blindStateRq);
-        blindStateRepository.save(blindStateRq);
+        blindStateRepository.save(blindByName);
     }
 
 
     public void initDb()
     {
         blindList
-                .forEach(blind -> blindStateRepository.save(uncovered(blind.getName())));
+                .forEach(blind -> blindStateRepository.save(blind));
 
     }
 }

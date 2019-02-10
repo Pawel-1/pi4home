@@ -3,6 +3,11 @@ package com.pi4home.model.blinds;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.pi4j.io.gpio.GpioPinDigitalOutput;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "BLINDS")
 public class Blind
 {
     @JsonIgnore
@@ -12,36 +17,33 @@ public class Blind
     @JsonIgnore
     private GpioPinDigitalOutput goDownPin;
     private String name;
-    private BlindState blindState;
+    private double percentageMaskingState;
 
     public Blind()
     {
     }
 
-    public void setMasking(BlindState updatedBlindState) throws InterruptedException
+    public void setMasking(double updatedBlindState) throws InterruptedException
     {
-        BlindState actualBlindState = this.getBlindState();
-        double actualMaskingState = actualBlindState.getPercentageMaskingState();
-        System.out.println("actual masking state is : " + actualMaskingState);
-        double updatedMaskingState = updatedBlindState.getPercentageMaskingState();
-        System.out.println("updated masking state is : " + updatedMaskingState);
+        System.out.println("actual masking state is : " + this.getPercentageMaskingState());
+        System.out.println("updated masking state is : " + updatedBlindState);
 
-        if (actualMaskingState > updatedMaskingState)
+        if (this.getPercentageMaskingState() > updatedBlindState)
         {
-            double percentageToMove = (actualMaskingState - updatedMaskingState) / 100;
+            double percentageToMove = (this.getPercentageMaskingState() - updatedBlindState) / 100;
             System.out.println("percentage to move is : " + percentageToMove);
             System.out.println(this.getName() + " goes up for TIME: " + BLIND_MOVEMENT_TIME * percentageToMove);
             blindGoesUp(BLIND_MOVEMENT_TIME * percentageToMove);
         }
         else
         {
-            double percentageToMove = (updatedMaskingState - actualMaskingState) / 100;
+            double percentageToMove = (updatedBlindState - this.getPercentageMaskingState()) / 100;
             System.out.println("percentage to move is : " + percentageToMove);
             System.out.println(this.getName() + " goes down for TIME: " + BLIND_MOVEMENT_TIME * percentageToMove);
 
             blindGoesDown(BLIND_MOVEMENT_TIME * percentageToMove);
         }
-        this.setBlindState(updatedBlindState);
+        this.setPercentageMaskingState(updatedBlindState);
     }
 
     private void blindGoesDown(double millis) throws InterruptedException
@@ -93,13 +95,13 @@ public class Blind
         this.name = name;
     }
 
-    public BlindState getBlindState()
+    public double getPercentageMaskingState()
     {
-        return blindState;
+        return percentageMaskingState;
     }
 
-    public void setBlindState(BlindState blindState)
+    public void setPercentageMaskingState(double percentageMaskingState)
     {
-        this.blindState = blindState;
+        this.percentageMaskingState = percentageMaskingState;
     }
 }
