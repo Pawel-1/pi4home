@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.pi4j.io.gpio.GpioPinDigitalOutput;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
@@ -16,6 +17,7 @@ public class Blind
     private GpioPinDigitalOutput goUpPin;
     @JsonIgnore
     private GpioPinDigitalOutput goDownPin;
+    @Id
     private String name;
     private double percentageMaskingState;
 
