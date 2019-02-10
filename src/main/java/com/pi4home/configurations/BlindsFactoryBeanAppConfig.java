@@ -112,7 +112,7 @@ public class BlindsFactoryBeanAppConfig
         return blind;
     }
 
-    private double getBlindStateFromDB(Blind blind)
+    private Double getBlindStateFromDB(Blind blind)
     {
         Optional<Blind> blindFromDb = blindStateRepository
                 .findById(blind.getName());
@@ -121,6 +121,6 @@ public class BlindsFactoryBeanAppConfig
         {
             return blindFromDb.get().getPercentageMaskingState();
         }
-        return 0;
+        return 0.0;
     }
 }
