@@ -81,8 +81,8 @@ public class BlindsFactoryBeanAppConfig
         blind.setName("smallWindowLeft");
         blind.setPercentageMaskingState(getBlindStateFromDB(blind));
 
-        GpioPinDigitalOutput smallWindowMiddleUpPin = gpioController.provisionDigitalOutputPin(RaspiPin.GPIO_28, "smallWindowMiddleUp", PinState.LOW);
-        GpioPinDigitalOutput smallWindowMiddleDownPin = gpioController.provisionDigitalOutputPin(RaspiPin.GPIO_29, "smallWindowMiddleDown", PinState.LOW);
+        GpioPinDigitalOutput smallWindowMiddleUpPin = gpioController.provisionDigitalOutputPin(RaspiPin.GPIO_29, "smallWindowMiddleUp", PinState.LOW);
+        GpioPinDigitalOutput smallWindowMiddleDownPin = gpioController.provisionDigitalOutputPin(RaspiPin.GPIO_28, "smallWindowMiddleDown", PinState.LOW);
 
         blind.setGoUpPin(smallWindowMiddleUpPin);
         blind.setGoDownPin(smallWindowMiddleDownPin);
