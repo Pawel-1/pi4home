@@ -34,7 +34,7 @@ public class Blind
         System.out.println("actual masking state is : " + this.getPercentageMaskingState());
         System.out.println("updated masking state is : " + updatedBlindState);
 
-        if (this.getPercentageMaskingState() > updatedBlindState)
+        if (percentageMaskingState > updatedBlindState)
         {
             double percentageToMove = (this.getPercentageMaskingState() - updatedBlindState) / 100;
             System.out.println("percentage to move is : " + percentageToMove);
