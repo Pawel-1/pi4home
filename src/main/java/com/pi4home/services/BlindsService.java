@@ -46,11 +46,11 @@ public class BlindsService
 
         if (percentageMaskingState == 100)
         {
-            blind.setMasking(0);
+            blind.setMasking(0.0);
         }
         else if (percentageMaskingState == 0)
         {
-            blind.setMasking(100);
+            blind.setMasking(100.0);
         }
     }
 
