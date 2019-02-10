@@ -29,7 +29,7 @@ public class Blind
     {
     }
 
-    public void setMasking(double updatedBlindState) throws InterruptedException
+    public void setMasking(Double updatedBlindState) throws InterruptedException
     {
         System.out.println("actual masking state is : " + this.getPercentageMaskingState());
         System.out.println("updated masking state is : " + updatedBlindState);
