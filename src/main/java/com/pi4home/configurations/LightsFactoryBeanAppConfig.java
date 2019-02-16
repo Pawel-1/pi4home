@@ -26,4 +26,20 @@ public class LightsFactoryBeanAppConfig
         return light;
     }
 
+    @Bean(name = "sidewalkLight")
+    public Light sidewalkLight()
+    {
+        Light light = new Light();
+        light.setName("sidewalkLight");
+        light.setTurnedOn(false);
+
+        GpioPinDigitalOutput lightOnPin = gpioController.provisionDigitalOutputPin(RaspiPin.GPIO_01, "sidewalkLightOnPin", PinState.LOW);
+
+        light.setLightOnPin(lightOnPin);
+
+        lightOnPin.setShutdownOptions(false, PinState.LOW);
+
+        return light;
+    }
+
 }

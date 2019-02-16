@@ -2,9 +2,14 @@ package com.pi4home.model.lights;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.pi4j.io.gpio.GpioPinDigitalOutput;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Light
 {
+    @JsonIgnore
+    private Logger logger = LoggerFactory.getLogger(getClass());
+
     private String name;
     @JsonIgnore
     private GpioPinDigitalOutput lightOnPin;
@@ -14,14 +19,14 @@ public class Light
     {
         lightOnPin.high();
         isTurnedOn = true;
-        System.out.println("light ON");
+        logger.info(this.getName() + "is ON");
     }
 
     public void turnOffTheLights()
     {
         lightOnPin.low();
         isTurnedOn = false;
-        System.out.println("light OFF");
+        logger.info(this.getName() + "is OFF");
     }
 
     public void setName(String name)

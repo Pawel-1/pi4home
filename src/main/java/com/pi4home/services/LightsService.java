@@ -4,7 +4,9 @@ import com.pi4home.model.lights.Light;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import static java.util.Arrays.asList;
 
@@ -14,33 +16,52 @@ public class LightsService
     @Autowired
     Light entranceLight;
 
-    public Light switchLight()
+    @Autowired
+    Light sidewalkLight;
+
+    List<Light> lightList = Arrays.asList(entranceLight, sidewalkLight);
+
+    public Light switchLight(String name)
     {
-        if (entranceLight.isTurnedOn())
+        Light lightByName = getLightByName(name);
+
+        if (lightByName.isTurnedOn())
         {
-            entranceLight.turnOffTheLights();
+            lightByName.turnOffTheLights();
         }
 
-        else if (!entranceLight.isTurnedOn())
+        else if (!lightByName.isTurnedOn())
         {
-            entranceLight.turnOnTheLight();
+            lightByName.turnOnTheLight();
         }
-        return entranceLight;
+        return lightByName;
     }
+
+
 
     public void handleLightDissimilarity(Light lightRq)
     {
-        if(lightRq.isTurnedOn() && !entranceLight.isTurnedOn())
+        Light lightByName = getLightByName(lightRq.getName());
+
+        if(lightRq.isTurnedOn() && !lightByName.isTurnedOn())
         {
             entranceLight.turnOnTheLight();
         }
 
-        if(!lightRq.isTurnedOn() && entranceLight.isTurnedOn())
+        if(!lightRq.isTurnedOn() && lightByName.isTurnedOn())
         {
-            entranceLight.turnOffTheLights();
+            lightByName.turnOffTheLights();
         }
     }
 
+    private Light getLightByName(String name)
+    {
+        return lightList
+                .stream()
+                .filter(light -> light.getName().equals(name))
+                .findFirst()
+                .orElseThrow(()-> new NoSuchElementException());
+    }
 
     public List<Light> getLightList()
     {

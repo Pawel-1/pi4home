@@ -17,7 +17,7 @@ public class QueueConsumer
     @Autowired
     LightsService lightsService;
 
-    protected Logger logger = LoggerFactory.getLogger(getClass());
+    private Logger logger = LoggerFactory.getLogger(getClass());
 
     public void receiveMessage(String message)
     {
