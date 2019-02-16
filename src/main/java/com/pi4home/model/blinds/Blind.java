@@ -14,8 +14,9 @@ import javax.persistence.Transient;
 @Table(name = "BLINDS")
 public class Blind
 {
+    @Transient
+    @JsonIgnore
     private Logger logger = LoggerFactory.getLogger(getClass());
-
     @Transient
     @JsonIgnore
     private static final int BLIND_MOVEMENT_TIME = 31000;
