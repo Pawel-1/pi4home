@@ -19,6 +19,7 @@ public class LightsService
     @Autowired
     Light sidewalkLight;
 
+    @Autowired
     List<Light> lightList = Arrays.asList(entranceLight, sidewalkLight);
 
     public Light switchLight(String name)
