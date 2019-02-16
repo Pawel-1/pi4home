@@ -34,9 +34,11 @@ public class QueueConsumer
 
     private void processMessage(String message)
     {
+        logger.info("Processing message from broker");
+        Light light = null;
         try
         {
-            Light light = new ObjectMapper().readValue(message, Light.class);
+            light = new ObjectMapper().readValue(message, Light.class);
             lightsService.handleLightDissimilarity(light);
         }
         catch (JsonParseException e)
@@ -51,5 +53,8 @@ public class QueueConsumer
         {
             logger.error(e.getMessage());
         }
+        logger.info("Message from broker consumed: " + light.getName()
+                + " is turned on: " + light.isTurnedOn());
+
     }
 }

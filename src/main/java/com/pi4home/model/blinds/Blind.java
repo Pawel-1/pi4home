@@ -2,6 +2,8 @@ package com.pi4home.model.blinds;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.pi4j.io.gpio.GpioPinDigitalOutput;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -12,6 +14,8 @@ import javax.persistence.Transient;
 @Table(name = "BLINDS")
 public class Blind
 {
+    private Logger logger = LoggerFactory.getLogger(getClass());
+
     @Transient
     @JsonIgnore
     private static final int BLIND_MOVEMENT_TIME = 31000;
@@ -31,22 +35,21 @@ public class Blind
 
     public void setMasking(Double updatedBlindState) throws InterruptedException
     {
-        System.out.println("actual masking state is : " + this.getPercentageMaskingState());
-        System.out.println("updated masking state is : " + updatedBlindState);
+        logger.info("actual masking state is : " + this.getPercentageMaskingState());
+        logger.info("updated masking state is : " + updatedBlindState);
 
         if (percentageMaskingState > updatedBlindState)
         {
             double percentageToMove = (this.getPercentageMaskingState() - updatedBlindState) / 100;
-            System.out.println("percentage to move is : " + percentageToMove);
-            System.out.println(this.getName() + " goes up for TIME: " + BLIND_MOVEMENT_TIME * percentageToMove);
+            logger.info("percentage to move is : " + percentageToMove);
+            logger.info(this.getName() + " goes up for TIME: " + BLIND_MOVEMENT_TIME * percentageToMove);
             blindGoesUp(BLIND_MOVEMENT_TIME * percentageToMove);
         }
         else
         {
             double percentageToMove = (updatedBlindState - this.getPercentageMaskingState()) / 100;
-            System.out.println("percentage to move is : " + percentageToMove);
-            System.out.println(this.getName() + " goes down for TIME: " + BLIND_MOVEMENT_TIME * percentageToMove);
-
+            logger.info("percentage to move is : " + percentageToMove);
+            logger.info(this.getName() + " goes down for TIME: " + BLIND_MOVEMENT_TIME * percentageToMove);
             blindGoesDown(BLIND_MOVEMENT_TIME * percentageToMove);
         }
         this.setPercentageMaskingState(updatedBlindState);
