@@ -45,7 +45,7 @@ public class LightsService
 
         if(lightRq.isTurnedOn() && !lightByName.isTurnedOn())
         {
-            entranceLight.turnOnTheLight();
+            lightByName.turnOnTheLight();
         }
 
         if(!lightRq.isTurnedOn() && lightByName.isTurnedOn())
