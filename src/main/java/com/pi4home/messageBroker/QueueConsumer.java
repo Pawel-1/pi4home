@@ -54,7 +54,6 @@ public class QueueConsumer
         catch (Exception e)
         {
             logger.error(e.getMessage());
-            e.printStackTrace();
         }
     }
 }

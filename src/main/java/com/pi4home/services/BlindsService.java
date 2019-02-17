@@ -1,6 +1,6 @@
 package com.pi4home.services;
 
-import com.pi4home.jpa.BlindStateRepository;
+import com.pi4home.jpa.BlindRepository;
 import com.pi4home.model.blinds.Blind;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,7 +13,7 @@ import java.util.NoSuchElementException;
 public class BlindsService
 {
     @Autowired
-    private BlindStateRepository blindStateRepository;
+    private BlindRepository blindRepository;
     @Autowired
     private Blind blindLargeWindowLeft;
 
@@ -73,21 +73,21 @@ public class BlindsService
         Blind blindByName = getBlindByName(blindRq.getName());
         double blindStateRq = blindRq.getPercentageMaskingState();
         blindByName.setMasking(blindStateRq);
-        blindStateRepository.save(blindByName);
+        blindRepository.save(blindByName);
     }
 
     public void updateBlindStateByValue(String blindName, Double blindState) throws InterruptedException
     {
         Blind blindByName = getBlindByName(blindName);
         blindByName.setMasking(blindState);
-        blindStateRepository.save(blindByName);
+        blindRepository.save(blindByName);
     }
 
 
     public void initDb()
     {
         blindList
-                .forEach(blind -> blindStateRepository.save(blind));
+                .forEach(blind -> blindRepository.save(blind));
 
     }
 }

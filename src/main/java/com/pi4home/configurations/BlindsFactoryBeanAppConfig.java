@@ -1,20 +1,19 @@
 package com.pi4home.configurations;
 
-import com.pi4home.jpa.BlindStateRepository;
+import com.pi4home.jpa.BlindRepository;
 import com.pi4home.model.blinds.Blind;
 import com.pi4j.io.gpio.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Configuration
 public class BlindsFactoryBeanAppConfig
 {
     @Autowired
-    BlindStateRepository blindStateRepository;
+    BlindRepository blindRepository;
     private GpioController gpioController = GpioFactory.getInstance();
 
     @Bean(name = "blindLargeWindowLeft")
@@ -114,7 +113,7 @@ public class BlindsFactoryBeanAppConfig
 
     private Double getBlindStateFromDB(Blind blind)
     {
-        Optional<Blind> blindFromDb = blindStateRepository
+        Optional<Blind> blindFromDb = blindRepository
                 .findById(blind.getName());
 
         if (blindFromDb.isPresent())
