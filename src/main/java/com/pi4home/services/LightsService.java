@@ -66,6 +66,6 @@ public class LightsService
 
     public List<Light> getLightList()
     {
-        return asList(entranceLight);
+        return lightList;
     }
 }
