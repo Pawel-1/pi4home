@@ -17,7 +17,7 @@ public class LightsFactoryBeanAppConfig
         light.setName("entranceLight");
         light.setTurnedOn(false);
 
-        GpioPinDigitalOutput lightOnPin = gpioController.provisionDigitalOutputPin(RaspiPin.GPIO_00, "entranceLightOnPin", PinState.LOW);
+        GpioPinDigitalOutput lightOnPin = gpioController.provisionDigitalOutputPin(RaspiPin.GPIO_01, "entranceLightOnPin", PinState.LOW);
 
         light.setLightOnPin(lightOnPin);
 
@@ -33,7 +33,7 @@ public class LightsFactoryBeanAppConfig
         light.setName("sidewalkLight");
         light.setTurnedOn(false);
 
-        GpioPinDigitalOutput lightOnPin = gpioController.provisionDigitalOutputPin(RaspiPin.GPIO_01, "sidewalkLightOnPin", PinState.LOW);
+        GpioPinDigitalOutput lightOnPin = gpioController.provisionDigitalOutputPin(RaspiPin.GPIO_00, "sidewalkLightOnPin", PinState.LOW);
 
         light.setLightOnPin(lightOnPin);
 
