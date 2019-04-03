@@ -1,6 +1,5 @@
 package com.pi4home.messageBroker;
 
-import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.pi4home.model.blinds.Blind;
@@ -41,21 +40,36 @@ public class QueueConsumer
 
     private void processMessage(String brokerMessage)
     {
+        ObjectMapper objectMapper = new ObjectMapper();
         try
         {
-            Blind light = new ObjectMapper().readValue(brokerMessage, Blind.class);
-//            lightsService.handleLightDissimilarity(light);
+            Light light = objectMapper.readValue(brokerMessage, Light.class);
+            lightsService.updateLightState(light);
 
-//            logger.info("Message from broker consumed: " + light.getName()
-//                    + " is turned on: " + light.isTurnedOn());
+            logger.info("Message from broker consumed: " + light.getName()
+                    + " is turned on: " + light.isTurnedOn());
         }
-        catch (JsonParseException e)
-        {
-            logger.warn("Bad JSON in message: " + brokerMessage, e.getMessage());
-        }
+
         catch (JsonMappingException e)
         {
             logger.warn("cannot map JSON to NotificationRequest: " + brokerMessage, e.getMessage());
+
+            try
+            {
+                Blind blind = objectMapper.readValue(brokerMessage, Blind.class);
+                try
+                {
+                    blindsService.updateBlindState(blind);
+                }
+                catch (InterruptedException e1)
+                {
+                    e1.printStackTrace();
+                }
+            }
+            catch (IOException e1)
+            {
+                e1.printStackTrace();
+            }
         }
         catch (Exception e)
         {

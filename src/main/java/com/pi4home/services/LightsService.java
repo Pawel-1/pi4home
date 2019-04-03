@@ -40,7 +40,7 @@ public class LightsService
 
 
 
-    public void handleLightDissimilarity(Light lightRq)
+    public void updateLightState(Light lightRq)
     {
         Light lightByName = getLightByName(lightRq.getName());
 
