@@ -3,6 +3,7 @@ package com.pi4home.messageBroker;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.pi4home.model.blinds.Blind;
 import com.pi4home.model.lights.Light;
 import com.pi4home.services.BlindsService;
 import com.pi4home.services.LightsService;
@@ -40,11 +41,13 @@ public class QueueConsumer
 
     private void processMessage(String brokerMessage)
     {
-
-        Response response = null;
         try
         {
-            response = new ObjectMapper().readValue(brokerMessage, Response.class);
+            Blind light = new ObjectMapper().readValue(brokerMessage, Blind.class);
+//            lightsService.handleLightDissimilarity(light);
+
+//            logger.info("Message from broker consumed: " + light.getName()
+//                    + " is turned on: " + light.isTurnedOn());
         }
         catch (JsonParseException e)
         {
@@ -58,31 +61,5 @@ public class QueueConsumer
         {
             logger.error(e.getMessage());
         }
-        if(response.response instanceof Light)
-        {
-            lightsService.handleLightDissimilarity((Light)response.response);
-        }
-
-        logger.info("Processing message from broker");
-//        try
-//        {
-//            Light light = new ObjectMapper().readValue(brokerMessage, Light.class);
-//            lightsService.handleLightDissimilarity(light);
-//
-//            logger.info("Message from broker consumed: " + light.getName()
-//                    + " is turned on: " + light.isTurnedOn());
-//        }
-//        catch (JsonParseException e)
-//        {
-//            logger.warn("Bad JSON in message: " + brokerMessage, e.getMessage());
-//        }
-//        catch (JsonMappingException e)
-//        {
-//            logger.warn("cannot map JSON to NotificationRequest: " + brokerMessage, e.getMessage());
-//        }
-//        catch (Exception e)
-//        {
-//            logger.error(e.getMessage());
-//        }
     }
 }
