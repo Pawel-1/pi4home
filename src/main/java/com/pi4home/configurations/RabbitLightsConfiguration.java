@@ -1,6 +1,6 @@
 package com.pi4home.configurations;
 
-import com.pi4home.messageBroker.QueueConsumer;
+import com.pi4home.messageBroker.LightsQueueConsumer;
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.FanoutExchange;
@@ -13,12 +13,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class RabbitConfiguration
+public class RabbitLightsConfiguration
 {
-    private static final String LISTENER_METHOD = "receiveMessage";
-    @Value("${queue.name}")
+    private static final String LISTENER_METHOD = "receiveMessageLightsQueue";
+    @Value("${lights.queue.name}")
     private String queueName;
-    @Value("${fanout.exchange}")
+    @Value("${lights.fanout.exchange}")
     private String fanoutExchange;
     @Bean
     Queue queue() {
@@ -42,7 +42,7 @@ public class RabbitConfiguration
         return container;
     }
     @Bean
-    MessageListenerAdapter listenerAdapter(QueueConsumer consumer) {
+    MessageListenerAdapter listenerAdapter(LightsQueueConsumer consumer) {
         return new MessageListenerAdapter(consumer, LISTENER_METHOD);
     }
 }
