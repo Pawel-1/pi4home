@@ -1,6 +1,6 @@
 package com.pi4home.configurations;
 
-import com.pi4home.messageBroker.LightsQueueConsumer;
+import com.pi4home.messageBroker.YeelightsQueueConsumer;
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.FanoutExchange;
@@ -22,29 +22,39 @@ public class RabbitYeelightsConfiguration
     private String queueName;
     @Value("${yeelights.fanout.exchange}")
     private String fanoutExchange;
+
     @Bean
-    Queue queue() {
+    Queue queue()
+    {
         return new Queue(queueName, true);
     }
+
     @Bean
-    FanoutExchange exchange() {
+    FanoutExchange exchange()
+    {
         return new FanoutExchange(fanoutExchange);
     }
+
     @Bean
-    Binding binding(Queue queue, FanoutExchange exchange) {
+    Binding binding(Queue queue, FanoutExchange exchange)
+    {
         return BindingBuilder.bind(queue).to(exchange);
     }
+
     @Bean
     SimpleMessageListenerContainer container(ConnectionFactory connectionFactory,
-                                             MessageListenerAdapter listenerAdapter) {
+                                             MessageListenerAdapter listenerAdapter)
+    {
         SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
         container.setConnectionFactory(connectionFactory);
         container.setQueueNames(queueName);
         container.setMessageListener(listenerAdapter);
         return container;
     }
+
     @Bean
-    MessageListenerAdapter listenerAdapter(LightsQueueConsumer consumer) {
+    MessageListenerAdapter listenerAdapter(YeelightsQueueConsumer consumer)
+    {
         return new MessageListenerAdapter(consumer, LISTENER_METHOD);
     }
 }
