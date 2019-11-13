@@ -89,7 +89,7 @@
         </dependency>
 
         <dependency>
-            <groupId>com.pi4home.yapi</groupId>
+            <groupId>com.yapi</groupId>
             <artifactId>yapi</artifactId>
             <version>1</version>
         </dependency>
