@@ -88,6 +88,10 @@
             <artifactId>spring-boot-starter-amqp</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.pi4home.yapi</groupId>
+            <artifactId>yapi</artifactId>
+        </dependency>
     </dependencies>
 
     <properties>
