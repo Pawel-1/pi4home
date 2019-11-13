@@ -22,13 +22,13 @@ public class LightsQueueConsumer
 
     private Logger logger = LoggerFactory.getLogger(getClass());
 
-    public void receiveMessageLights(String message)
+    public void receiveMessageYeelights(String message)
     {
         logger.info("Received (String) " + message);
         processMessage(message);
     }
 
-    public void receiveMessageLights(byte[] message)
+    public void receiveMessageYeelights(byte[] message)
     {
         String strMessage = new String(message);
         logger.info("Received (No String) " + strMessage);
