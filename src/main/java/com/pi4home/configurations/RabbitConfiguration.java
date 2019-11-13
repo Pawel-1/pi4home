@@ -1,6 +1,8 @@
 package com.pi4home.configurations;
 
+import com.pi4home.messageBroker.BlindsQueueConsumer;
 import com.pi4home.messageBroker.LightsQueueConsumer;
+import com.pi4home.messageBroker.YeelightsQueueConsumer;
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.FanoutExchange;
@@ -113,11 +115,11 @@ public class RabbitConfiguration
     }
 
     @Bean
-    MessageListenerAdapter listenerAdapterBlinds(LightsQueueConsumer consumer) {
+    MessageListenerAdapter listenerAdapterBlinds(BlindsQueueConsumer consumer) {
         return new MessageListenerAdapter(consumer, LISTENER_METHOD_BLINDS);
     }
     @Bean
-    MessageListenerAdapter listenerAdapterYeelights(LightsQueueConsumer consumer) {
+    MessageListenerAdapter listenerAdapterYeelights(YeelightsQueueConsumer consumer) {
         return new MessageListenerAdapter(consumer, LISTENER_METHOD_YEELIGHTS);
     }
 }
