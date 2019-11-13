@@ -20,13 +20,13 @@ public class BlindsQueueConsumer
 
     private Logger logger = LoggerFactory.getLogger(getClass());
 
-    public void receiveMessage(String message)
+    public void receiveMessageBlinds(String message)
     {
         logger.info("Received (String) " + message);
         processMessage(message);
     }
 
-    public void receiveMessage(byte[] message)
+    public void receiveMessageBlinds(byte[] message)
     {
         String strMessage = new String(message);
         logger.info("Received (No String) " + strMessage);

@@ -15,7 +15,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class RabbitBlindsConfiguration
 {
-    private static final String LISTENER_METHOD = "receiveMessage";
+    private static final String LISTENER_METHOD = "receiveMessageBlinds";
     @Value("${blinds.queue.name}")
     private String queueName;
     @Value("${blinds.fanout.exchange}")
