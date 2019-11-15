@@ -6,7 +6,7 @@
 
     <groupId>com.pi4home</groupId>
     <artifactId>pi4home</artifactId>
-    <version>1.2-SNAPSHOT</version>
+    <version>1.3-SNAPSHOT</version>
 
 
     <parent>
@@ -88,6 +88,14 @@
             <artifactId>spring-boot-starter-amqp</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.yapi</groupId>
+            <artifactId>yapi</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/repo/com/yapi/1.0/yapi-1.0.jar</systemPath>
+        </dependency>
+
     </dependencies>
 
     <properties>
@@ -100,8 +108,19 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <includeSystemScope>true</includeSystemScope>
+                </configuration>
             </plugin>
         </plugins>
+        <resources>
+            <resource>
+                <directory>repo</directory>
+                <excludes>
+                    <exclude>**/*.jar</exclude>
+                </excludes>
+            </resource>
+        </resources>
     </build>
 
 </project>
