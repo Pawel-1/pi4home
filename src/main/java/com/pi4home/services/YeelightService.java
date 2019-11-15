@@ -7,11 +7,13 @@ import com.mollin.yapi.exception.YeelightSocketException;
 import com.pi4home.model.yeelight.Yeelight;
 import com.pi4home.model.yeelight.YeelightDeviceWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+@Service
 public class YeelightService
 {
     @Autowired
