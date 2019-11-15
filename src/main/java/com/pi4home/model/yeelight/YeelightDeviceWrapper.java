@@ -1,6 +1,7 @@
 package com.pi4home.model.yeelight;
 
-import com.mollin.yapi.YeelightDevice;
+
+import com.pi4home.api.yapi.YeelightDevice;
 
 public class YeelightDeviceWrapper
 {

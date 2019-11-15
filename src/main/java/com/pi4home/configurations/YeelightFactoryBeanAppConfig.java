@@ -1,8 +1,8 @@
 package com.pi4home.configurations;
 
-import com.mollin.yapi.YeelightDevice;
-import com.mollin.yapi.exception.YeelightSocketException;
 import com.pi4home.model.yeelight.YeelightDeviceWrapper;
+import com.pi4home.api.yapi.YeelightDevice;
+import com.pi4home.api.yapi.exception.YeelightSocketException;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
