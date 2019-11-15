@@ -27,7 +27,17 @@ public class YeelightService
 
     public void updateYeelightStatus(Yeelight yeelight)
     {
-        YeelightDeviceWrapper yeelightWrapperByName = getYeelightWrapperByName(yeelight.getName());
+        YeelightDeviceWrapper yeelightWrapperByName = null;
+        try
+        {
+
+            yeelightWrapperByName = getYeelightWrapperByName(yeelight.getName());
+        }
+        catch (NoSuchElementException e)
+        {
+            e.printStackTrace();
+        }
+
         YeelightDevice yeelightDevice = yeelightWrapperByName.getYeelightDevice();
 
         try
