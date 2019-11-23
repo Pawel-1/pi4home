@@ -3,12 +3,11 @@ package com.pi4home.model.yeelight;
 public class Yeelight
 {
     private String name;
-    private boolean isTurnedOn;
+    private boolean turnedOn;
     private RGB rgb;
     private int brightness;
     private int hue;
     private int saturation;
-    private boolean returnProperties;
 
 
     public String getName()
@@ -23,12 +22,12 @@ public class Yeelight
 
     public boolean isTurnedOn()
     {
-        return isTurnedOn;
+        return turnedOn;
     }
 
     public void setTurnedOn(boolean turnedOn)
     {
-        this.isTurnedOn = turnedOn;
+        this.turnedOn = turnedOn;
     }
 
     public RGB getRgb()
@@ -69,15 +68,5 @@ public class Yeelight
     public void setSaturation(int saturation)
     {
         this.saturation = saturation;
-    }
-
-    public boolean isReturnProperties()
-    {
-        return returnProperties;
-    }
-
-    public void setReturnProperties(boolean returnProperties)
-    {
-        this.returnProperties = returnProperties;
     }
 }
