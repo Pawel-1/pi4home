@@ -8,6 +8,7 @@ public class Yeelight
     private int brightness;
     private int hue;
     private int saturation;
+    private boolean returnProperties;
 
 
     public String getName()
@@ -27,7 +28,7 @@ public class Yeelight
 
     public void setTurnedOn(boolean turnedOn)
     {
-        isTurnedOn = turnedOn;
+        this.isTurnedOn = turnedOn;
     }
 
     public RGB getRgb()
@@ -68,5 +69,15 @@ public class Yeelight
     public void setSaturation(int saturation)
     {
         this.saturation = saturation;
+    }
+
+    public boolean isReturnProperties()
+    {
+        return returnProperties;
+    }
+
+    public void setReturnProperties(boolean returnProperties)
+    {
+        this.returnProperties = returnProperties;
     }
 }
