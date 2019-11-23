@@ -1,10 +1,10 @@
 package com.pi4home.services;
 
-import com.pi4home.model.yeelight.Yeelight;
-import com.pi4home.model.yeelight.YeelightDeviceWrapper;
 import com.pi4home.api.yapi.YeelightDevice;
 import com.pi4home.api.yapi.exception.YeelightResultErrorException;
 import com.pi4home.api.yapi.exception.YeelightSocketException;
+import com.pi4home.model.yeelight.Yeelight;
+import com.pi4home.model.yeelight.YeelightDeviceWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,11 +28,12 @@ public class YeelightService
     public void updateYeelightStatus(Yeelight yeelight)
     {
         YeelightDeviceWrapper yeelightWrapperByName = null;
+
         try
         {
-
             yeelightWrapperByName = getYeelightWrapperByName(yeelight.getName());
         }
+
         catch (NoSuchElementException e)
         {
             e.printStackTrace();
@@ -44,18 +45,17 @@ public class YeelightService
         {
             yeelightDevice.setPower(yeelight.isTurnedOn());
         }
+
         catch (YeelightResultErrorException e)
         {
             e.printStackTrace();
         }
+
         catch (YeelightSocketException e)
         {
             e.printStackTrace();
         }
-
-
     }
-
 
     private YeelightDeviceWrapper getYeelightWrapperByName(String name)
     {
