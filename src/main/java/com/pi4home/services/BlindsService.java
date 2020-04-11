@@ -2,6 +2,8 @@ package com.pi4home.services;
 
 import com.pi4home.jpa.BlindRepository;
 import com.pi4home.model.blinds.Blind;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +14,8 @@ import java.util.NoSuchElementException;
 @Service
 public class BlindsService
 {
+    private static final Logger logger = LoggerFactory.getLogger(BlindsService.class);
+
     @Autowired
     private BlindRepository blindRepository;
     @Autowired
@@ -73,22 +77,36 @@ public class BlindsService
         Blind blindByName = getBlindByName(blindRq.getName());
         double blindStateRq = blindRq.getPercentageMaskingState();
         blindByName.setMasking(blindStateRq);
-        blindRepository.save(blindByName);
+        updateDB(blindByName);
     }
 
     public void updateBlindStateByValue(String blindName, Double blindState) throws InterruptedException
     {
         //ToDo: save should be the last step, it is here only couse timeouts, when multithread will be implemented, move the save step.
         Blind blindByName = getBlindByName(blindName);
-        blindRepository.save(blindByName);
+        updateDB(blindByName);
         blindByName.setMasking(blindState);
+    }
+
+    private Blind updateDB(Blind blindByName)
+    {
+        logger.info("saving data in DB: " + blindByName.getName() + "state: " + blindByName.getPercentageMaskingState());
+        try
+        {
+            return blindRepository.save(blindByName);
+        }
+        catch (Exception e)
+        {
+            logger.error(e.getMessage());
+        }
+        return null;
     }
 
 
     public void initDb()
     {
         blindList
-                .forEach(blind -> blindRepository.save(blind));
+                .forEach(blind -> updateDB(blind));
 
     }
 }
