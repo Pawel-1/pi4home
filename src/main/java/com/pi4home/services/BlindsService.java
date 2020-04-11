@@ -82,10 +82,9 @@ public class BlindsService
 
     public void updateBlindStateByValue(String blindName, Double blindState) throws InterruptedException
     {
-        //ToDo: save should be the last step, it is here only couse timeouts, when multithread will be implemented, move the save step.
         Blind blindByName = getBlindByName(blindName);
-        updateDB(blindByName);
         blindByName.setMasking(blindState);
+        updateDB(blindByName);
     }
 
     private Blind updateDB(Blind blindByName)
