@@ -12,14 +12,14 @@ import java.io.IOException;
 
 public class BlindsMessageProcessor implements Runnable
 {
-    @Autowired
-    private BlindsService blindsService;
     private Logger logger = LoggerFactory.getLogger(getClass());
     private String brokerMessage;
+    private BlindsService blindsService;
 
-    public BlindsMessageProcessor(String brokerMessage)
+    public BlindsMessageProcessor(String brokerMessage, BlindsService blindsService)
     {
         this.brokerMessage = brokerMessage;
+        this.blindsService = blindsService;
     }
 
     @Override
