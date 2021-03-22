@@ -2,7 +2,6 @@ package com.pi4home.configurations;
 
 import com.pi4home.messageBroker.BlindsQueueConsumer;
 import com.pi4home.messageBroker.LightsQueueConsumer;
-import com.pi4home.messageBroker.YeelightsQueueConsumer;
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.FanoutExchange;
@@ -33,10 +32,6 @@ public class RabbitConfiguration
     @Value("${blinds.fanout.exchange}")
     private String fanoutExchangeBlinds;
 
-    @Value("${yeelights.queue.name}")
-    private String queueNameYeelights;
-    @Value("${yeelights.fanout.exchange}")
-    private String fanoutExchangeYeelights;
 
     @Bean
     Queue queueLights() {
@@ -45,15 +40,6 @@ public class RabbitConfiguration
     @Bean
     FanoutExchange exchangeLights() {
         return new FanoutExchange(fanoutExchangeLights);
-    }
-
-    @Bean
-    Queue queueYeelights() {
-        return new Queue(queueNameYeelights, true);
-    }
-    @Bean
-    FanoutExchange exchangeYeelights() {
-        return new FanoutExchange(fanoutExchangeYeelights);
     }
 
     @Bean
@@ -72,10 +58,6 @@ public class RabbitConfiguration
     @Bean
     Binding bindingBlinds(Queue queueBlinds, FanoutExchange exchangeBlinds) {
         return BindingBuilder.bind(queueBlinds).to(exchangeBlinds);
-    }
-    @Bean
-    Binding bindingYeelihts(Queue queueYeelights, FanoutExchange exchangeYeelights) {
-        return BindingBuilder.bind(queueYeelights).to(exchangeYeelights);
     }
 
     @Bean
@@ -99,17 +81,6 @@ public class RabbitConfiguration
     }
 
     @Bean
-    SimpleMessageListenerContainer containerYeelights(ConnectionFactory connectionFactory,
-                                             MessageListenerAdapter listenerAdapterYeelights) {
-        SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
-        container.setConnectionFactory(connectionFactory);
-        container.setQueueNames(queueNameYeelights);
-        container.setMessageListener(listenerAdapterYeelights);
-        return container;
-    }
-
-
-    @Bean
     MessageListenerAdapter listenerAdapterLights(LightsQueueConsumer consumer) {
         return new MessageListenerAdapter(consumer, LISTENER_METHOD_LIGHTS);
     }
@@ -117,9 +88,5 @@ public class RabbitConfiguration
     @Bean
     MessageListenerAdapter listenerAdapterBlinds(BlindsQueueConsumer consumer) {
         return new MessageListenerAdapter(consumer, LISTENER_METHOD_BLINDS);
-    }
-    @Bean
-    MessageListenerAdapter listenerAdapterYeelights(YeelightsQueueConsumer consumer) {
-        return new MessageListenerAdapter(consumer, LISTENER_METHOD_YEELIGHTS);
     }
 }
