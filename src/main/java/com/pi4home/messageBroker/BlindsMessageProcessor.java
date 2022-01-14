@@ -19,9 +19,8 @@ public class BlindsMessageProcessor implements Runnable
     private BlindsService blindsService;
 
     @Autowired
-    public BlindsMessageProcessor(String brokerMessage, BlindsService blindsService)
+    public BlindsMessageProcessor(BlindsService blindsService)
     {
-        this.brokerMessage = brokerMessage;
         this.blindsService = blindsService;
     }
 
@@ -60,5 +59,10 @@ public class BlindsMessageProcessor implements Runnable
             e1.printStackTrace();
         }
         return blind;
+    }
+
+    public void setBrokerMessage(String brokerMessage)
+    {
+        this.brokerMessage = brokerMessage;
     }
 }

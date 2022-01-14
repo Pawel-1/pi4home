@@ -19,6 +19,7 @@ public class BlindsQueueConsumer
     public void receiveMessageBlinds(String message)
     {
         logger.info("Received (String) " + message);
+        blindsMessageProcessor.setBrokerMessage(message);
         Thread thread = new Thread(blindsMessageProcessor);
         thread.start();
     }
