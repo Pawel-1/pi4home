@@ -6,7 +6,7 @@
 
     <groupId>com.pi4home</groupId>
     <artifactId>pi4home</artifactId>
-    <version>1.4-SNAPSHOT</version>
+    <version>1.5-SNAPSHOT</version>
 
 
     <parent>

@@ -12,14 +12,13 @@ import org.springframework.stereotype.Component;
 public class BlindsQueueConsumer
 {
     @Autowired
-    BlindsService blindsService;
+    BlindsMessageProcessor blindsMessageProcessor;
 
     private Logger logger = LoggerFactory.getLogger(getClass());
 
     public void receiveMessageBlinds(String message)
     {
         logger.info("Received (String) " + message);
-        BlindsMessageProcessor blindsMessageProcessor = new BlindsMessageProcessor(message, blindsService);
         Thread thread = new Thread(blindsMessageProcessor);
         thread.start();
     }
