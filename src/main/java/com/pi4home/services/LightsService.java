@@ -1,71 +1,64 @@
 package com.pi4home.services;
 
+import com.pi4home.jpa.LightRepository;
 import com.pi4home.model.lights.Light;
+import com.pi4home.model.lights.LightStatus;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
-import java.util.Arrays;
-import java.util.List;
-import java.util.NoSuchElementException;
-
-import static java.util.Arrays.asList;
+import org.springframework.web.client.RestTemplate;
 
 @Service
 public class LightsService
 {
+    @Value("${light.entranceLight.url}")
+    private String entranceLightUrl;
+    @Value("${light.ledTvLight.url}")
+    private String ledTvLightUrl;
     @Autowired
-    Light entranceLight;
-
+    RestTemplate restTemplate;
     @Autowired
-    Light sidewalkLight;
-
-    @Autowired
-    List<Light> lightList = Arrays.asList(entranceLight, sidewalkLight);
+    LightRepository lightRepository;
 
     public Light switchLight(String name)
     {
-        Light lightByName = getLightByName(name);
-
-        if (lightByName.isTurnedOn())
-        {
-            lightByName.turnOffTheLights();
-        }
-
-        else if (!lightByName.isTurnedOn())
-        {
-            lightByName.turnOnTheLight();
-        }
-        return lightByName;
+        return null;
     }
-
-
 
     public void updateLightState(Light lightRq)
     {
-        Light lightByName = getLightByName(lightRq.getName());
+        boolean turnedOn = lightRq.isTurnedOn();
 
-        if(lightRq.isTurnedOn() && !lightByName.isTurnedOn())
+        ResponseEntity<LightStatus> forEntity = restTemplate.getForEntity(getUrlToCall(lightRq), LightStatus.class, turnedOn);
+        if (forEntity.getStatusCode() == HttpStatus.OK)
         {
-            lightByName.turnOnTheLight();
+            lightRepository.save(lightRq);
         }
 
-        if(!lightRq.isTurnedOn() && lightByName.isTurnedOn())
+    }
+
+    private String getUrlToCall(Light lightRq)
+    {
+        String lightName = lightRq.getName();
+
+        switch (lightName)
         {
-            lightByName.turnOffTheLights();
+            case "entranceLight":
+                return entranceLightUrl;
+            case "ledTv":
+                return ledTvLightUrl;
+            default:
+                return null;
         }
     }
 
-    private Light getLightByName(String name)
+    public void updateDb(boolean lightTurnedOn)
     {
-        return lightList
-                .stream()
-                .filter(light -> light.getName().equals(name))
-                .findFirst()
-                .orElseThrow(()-> new NoSuchElementException());
-    }
-
-    public List<Light> getLightList()
-    {
-        return lightList;
+        Light light = new Light();
+        light.setName("entranceLight");
+        light.setTurnedOn(lightTurnedOn);
+        lightRepository.save(light);
     }
 }

@@ -21,9 +21,16 @@ public class LightsController
         return lightsService.switchLight(name);
     }
 
-    @RequestMapping("/lightStatus")
-    public List<Light> lightStatus()
+    @RequestMapping("/entranceLight/switchOn")
+    public void entranceLightSwitchOn()
     {
-        return lightsService.getLightList();
+        lightsService.updateDb(true);
+    }
+
+
+    @RequestMapping("/entranceLight/switchOff")
+    public void entranceLightSwitchOff()
+    {
+        lightsService.updateDb(false);
     }
 }
