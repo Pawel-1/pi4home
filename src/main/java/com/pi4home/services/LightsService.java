@@ -32,12 +32,11 @@ public class LightsService
 
     public void updateLightState(Light lightRq)
     {
-        boolean turnedOn = lightRq.isTurnedOn();
-
+        String turnedOn = lightRq.isTurnedOn() == true ? "on" : "off";
         try
         {
             String urlToCall = getUrlToCall(lightRq);
-            logger.info("url to call is: " + urlToCall, turnedOn);
+            logger.info("Calling Shelly device on address: " + urlToCall, turnedOn);
             restTemplate.getForObject(urlToCall, LightStatus.class, turnedOn);
         }
         catch (RestClientException exception)
