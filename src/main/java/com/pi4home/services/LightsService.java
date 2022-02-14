@@ -3,6 +3,8 @@ package com.pi4home.services;
 import com.pi4home.jpa.LightRepository;
 import com.pi4home.model.lights.Light;
 import com.pi4home.model.lights.LightStatus;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -21,6 +23,8 @@ public class LightsService
     @Autowired
     LightRepository lightRepository;
 
+    private Logger logger = LoggerFactory.getLogger(getClass());
+
     public Light switchLight(String name)
     {
         return null;
@@ -32,7 +36,9 @@ public class LightsService
 
         try
         {
-            restTemplate.getForObject(getUrlToCall(lightRq), LightStatus.class, turnedOn);
+            String urlToCall = getUrlToCall(lightRq);
+            logger.info("url to call is: " + urlToCall, turnedOn);
+            restTemplate.getForObject(urlToCall, LightStatus.class, turnedOn);
         }
         catch (RestClientException exception)
         {
