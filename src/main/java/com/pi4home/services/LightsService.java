@@ -5,9 +5,8 @@ import com.pi4home.model.lights.Light;
 import com.pi4home.model.lights.LightStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 @Service
@@ -31,12 +30,14 @@ public class LightsService
     {
         boolean turnedOn = lightRq.isTurnedOn();
 
-        ResponseEntity<LightStatus> forEntity = restTemplate.getForEntity(getUrlToCall(lightRq), LightStatus.class, turnedOn);
-        if (forEntity.getStatusCode() == HttpStatus.OK)
+        try
         {
-            lightRepository.save(lightRq);
+            restTemplate.getForObject(getUrlToCall(lightRq), LightStatus.class, turnedOn);
         }
-
+        catch (RestClientException exception)
+        {
+            exception.printStackTrace();
+        }
     }
 
     private String getUrlToCall(Light lightRq)
